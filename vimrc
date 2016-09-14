@@ -96,9 +96,78 @@ set wildmenu                    	" command-line completion in an enhanced mode
 "
 "" GENERAL CONFIGURATION 
 let mapleader=','			" change the leader key to colon. Much easier
-
-
-
+"===================================================================================
+" BUFFERS, WINDOWS
+"===================================================================================
+"
+"-------------------------------------------------------------------------------
+" Leave the editor with Ctrl-q (KDE): Write all changed buffers and exit Vim
+"-------------------------------------------------------------------------------
+nnoremap  <C-q>    :wqall<CR>
+"
+"-------------------------------------------------------------------------------
+"  some additional hot keys
+"-------------------------------------------------------------------------------
+"    F2   -  write file without confirmation
+"    F3   -  call file explorer Ex
+"    F4   -  show tag under curser in the preview window (tagfile must exist!)
+"    F5   -  open quickfix error window
+"    F6   -  close quickfix error window
+"    F7   -  display previous error
+"    F8   -  display next error   
+"-------------------------------------------------------------------------------
+"
+map   <silent> <F2>        :write<CR>
+map   <silent> <F3>        :Explore<CR>
+nmap  <silent> <F4>        :exe ":ptag ".expand("<cword>")<CR>
+map   <silent> <F5>        :copen<CR>
+map   <silent> <F6>        :cclose<CR>
+map   <silent> <F7>        :cp<CR>
+map   <silent> <F8>        :cn<CR>
+"
+imap  <silent> <F2>   <Esc>:write<CR>
+imap  <silent> <F3>   <Esc>:Explore<CR>
+imap  <silent> <F4>   <Esc>:exe ":ptag ".expand("<cword>")<CR>
+imap  <silent> <F5>   <Esc>:copen<CR>
+imap  <silent> <F6>   <Esc>:cclose<CR>
+imap  <silent> <F7>   <Esc>:cp<CR>
+imap  <silent> <F8>   <Esc>:cn<CR>
+"
+"-------------------------------------------------------------------------------
+" Fast switching between buffers
+" The current buffer will be saved before switching to the next one.
+" Choose :bprevious or :bnext
+"-------------------------------------------------------------------------------
+"
+ map  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly && 
+     \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+imap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly && 
+     \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+"
+"-------------------------------------------------------------------------------
+" Leave the editor with Ctrl-q : Write all changed buffers and exit Vim
+"-------------------------------------------------------------------------------
+nmap  <C-q>    :wqa<CR>
+"
+"-------------------------------------------------------------------------------
+" autocomplete parenthesis, brackets and braces
+"-------------------------------------------------------------------------------
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+"
+vnoremap ( s()<Esc>P<Right>%
+vnoremap [ s[]<Esc>P<Right>%
+vnoremap { s{}<Esc>P<Right>%
+"
+"-------------------------------------------------------------------------------
+" autocomplete quotes (visual and select mode)
+"-------------------------------------------------------------------------------
+xnoremap  '  s''<Esc>P<Right>
+xnoremap  "  s""<Esc>P<Right>
+xnoremap  `  s``<Esc>P<Right>
+"
+"
 "
 "*******************************
 " VARIOUS PLUGIN CONFIGURATIONS
