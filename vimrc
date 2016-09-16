@@ -96,6 +96,7 @@ set wildmenu                    	" command-line completion in an enhanced mode
 "
 "" GENERAL CONFIGURATION 
 let mapleader=','			" change the leader key to colon. Much easier
+"
 "===================================================================================
 " BUFFERS, WINDOWS
 "===================================================================================
@@ -167,8 +168,18 @@ xnoremap  '  s''<Esc>P<Right>
 xnoremap  "  s""<Esc>P<Right>
 xnoremap  `  s``<Esc>P<Right>
 "
+"-------------------------------------------------------------------------------
+" Vim navigation mapping within split
+"-------------------------------------------------------------------------------
 "
-"
+ set splitbelow
+ set splitright
+
+ nmap <C-J> <C-W><C-J>  " <Ctrl+J> go to split down
+ nmap <C-K> <C-W><C-K>  " <Ctrl+K> go to split Up
+ nmap <C-H> <C-W><C-H>  " <Ctrl+H> go to split left
+ nmap <C-L> <C-W><C-L>  " <Ctrl+L> go to split right
+" 
 "*******************************
 " VARIOUS PLUGIN CONFIGURATIONS
 "*******************************
@@ -183,6 +194,9 @@ xnoremap  `  s``<Esc>P<Right>
 "let g:solarized_contrast="high" 	"low/normal/high
 "let g:solarized_visibility="high" 	"low/normal/high
 "call togglebg#map("<F9>")
+"
+"" C-SUPPORT
+let g:C_MapLeader = ','
 "
 "" PLUGIN Kolor
 "let g:kolor_italic=1                    " Enable italic. Default: 1
