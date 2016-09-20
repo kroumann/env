@@ -37,7 +37,8 @@ Plugin 'vim-airline/vim-airline-themes'	" airline themes
 Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
 Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
 Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
-Plugin 'brookhong/cscope'
+""Plugin 'brookhong/cscope'
+Plugin 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
 
 call vundle#end()			" all the plugin should be added before this 
 					" line
@@ -169,17 +170,28 @@ xnoremap  "  s""<Esc>P<Right>
 xnoremap  `  s``<Esc>P<Right>
 "
 "-------------------------------------------------------------------------------
-" Vim navigation mapping within split
+" VIM command mappings 
 "-------------------------------------------------------------------------------
 "
+" ---------------set split position---------------
  set splitbelow
  set splitright
 
- nmap <C-J> <C-W><C-J>  " <Ctrl+J> go to split down
- nmap <C-K> <C-W><C-K>  " <Ctrl+K> go to split Up
- nmap <C-H> <C-W><C-H>  " <Ctrl+H> go to split left
- nmap <C-L> <C-W><C-L>  " <Ctrl+L> go to split right
-" 
+ " --------------Split navigation management-------
+ nmap <C-J> <C-W><C-J>  				" <Ctrl+J> go to split down
+ nmap <C-K> <C-W><C-K>				    " <Ctrl+K> go to split Up
+ nmap <C-H> <C-W><C-H>  				" <Ctrl+H> go to split left
+ nmap <C-L> <C-W><C-L>  				" <Ctrl+L> go to split right
+ 
+" ------------- editing config files ---------------
+ nmap <leader>ev :tabedit $MYVIMRC<cr> 		" edit my vimrc file
+ nmap <leader>et :tabedit ~/.tmux.conf<cr> 		" edit my tmux config file
+
+" -------------auto-commands ------------------------
+ if has("autocmd")
+  autocmd BufWritePost .vimrc source $MYVIMRC	" automatic source the vimrc on save.
+ endif
+"
 "*******************************
 " VARIOUS PLUGIN CONFIGURATIONS
 "*******************************
