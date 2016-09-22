@@ -9,8 +9,8 @@ For corporate proxy, please provide this setting in git to enable plugins downlo
     - proxy.server and port can be found with netstat command as described in the folowing  
       > netstate -an | grep EST
 - You can also unset or check the current http.proxy
-  - git config --global --get http.proxy 
-  - git config --global --unset http.proxy 
+   - git config --global --get http.proxy 
+   - git config --global --unset http.proxy 
 
 For Cygwin env please follow this article http://randomartifacts.blogspot.fr/2012/10/a-proper-cygwin-environment.html to setup 
 solarized color into mintty.
