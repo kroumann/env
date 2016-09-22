@@ -12,3 +12,5 @@ For corporate proxy, please provide this setting in git to enable plugins downlo
   - git config --global --get http.proxy 
   - git config --global --unset http.proxy 
 
+For Cygwin env please follow this article http://randomartifacts.blogspot.fr/2012/10/a-proper-cygwin-environment.html to setup 
+solarized color into mintty.
