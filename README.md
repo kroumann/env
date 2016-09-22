@@ -14,3 +14,5 @@ For corporate proxy, please provide this setting in git to enable plugins downlo
 
 For Cygwin env please follow this article http://randomartifacts.blogspot.fr/2012/10/a-proper-cygwin-environment.html to setup 
 solarized color into mintty.
+
+Create a .vimrc has a symbolic link file : - ln -sf ~/path/to/MyEnvConfig/vimrc ~/.vimrc (recommanded, but you can just copy this file to your home folder)
