@@ -76,7 +76,7 @@ set laststatus=2			" always show the statusline.
 "set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 set mouse=a                     	" enable the use of the mouse
 set nowrap                      	" do not wrap lines
-set number				" enable line numbering
+set number							" enable line numbering
 set popt=left:8pc,right:3pc     	" print options
 set ruler                       	" show the cursor position all the time
 set shiftwidth=4                	" number of spaces to use for each step of indent
@@ -106,6 +106,35 @@ let mapleader=','			" change the leader key to colon. Much easier
 " Leave the editor with Ctrl-q (KDE): Write all changed buffers and exit Vim
 "-------------------------------------------------------------------------------
 nnoremap  <C-q>    :wqall<CR>
+"
+"-------------------------------------------------------------------------------
+" The current directory is the directory of the file in the current window.
+"-------------------------------------------------------------------------------
+if has("autocmd")
+  autocmd BufEnter * :lchdir %:p:h
+endif
+"
+"-------------------------------------------------------------------------------
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+"-------------------------------------------------------------------------------
+if has("autocmd")
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+endif " has("autocmd")
+"
+"-------------------------------------------------------------------------------
+" Leave the editor with Ctrl-q : Write all changed buffers and exit Vim
+"-------------------------------------------------------------------------------
+nmap  <C-q>    :wqa<CR>
+"
+"-------------------------------------------------------------------------------
+" comma always followed by a space
+"-------------------------------------------------------------------------------
+inoremap  ,  ,<Space>
 "
 "-------------------------------------------------------------------------------
 "  some additional hot keys
@@ -147,16 +176,27 @@ imap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly &&
      \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 "
 "-------------------------------------------------------------------------------
-" Leave the editor with Ctrl-q : Write all changed buffers and exit Vim
+" Leave the editor with Ctrl-C : Write all changed buffers and exit Vim
 "-------------------------------------------------------------------------------
-nmap  <C-q>    :wqa<CR>
+nmap  <C-C>    :wqa<CR>
 "
+"-------------------------------------------------------------------------------
+" comma always followed by a space
+"-------------------------------------------------------------------------------
+inoremap  ,  ,<Space>
+"
+"-------------------------------------------------------------------------------
+" Jump to opening closing parenthesis, square bracket or brace 
+"-------------------------------------------------------------------------------
+nnoremap % v%
 "-------------------------------------------------------------------------------
 " autocomplete parenthesis, brackets and braces
 "-------------------------------------------------------------------------------
 inoremap ( ()<Left>
 inoremap [ []<Left>
 inoremap { {}<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
 "
 vnoremap ( s()<Esc>P<Right>%
 vnoremap [ s[]<Esc>P<Right>%
@@ -173,24 +213,26 @@ xnoremap  `  s``<Esc>P<Right>
 " VIM command mappings 
 "-------------------------------------------------------------------------------
 "
-" ---------------set split position---------------
+" ---------------set split position---------------------------------------------
  set splitbelow
  set splitright
 
- " --------------Split navigation management-------
- nmap <C-J> <C-W><C-J>  				" <Ctrl+J> go to split down
- nmap <C-K> <C-W><C-K>				    " <Ctrl+K> go to split Up
- nmap <C-H> <C-W><C-H>  				" <Ctrl+H> go to split left
- nmap <C-L> <C-W><C-L>  				" <Ctrl+L> go to split right
+ " --------------Split navigation management------------------------------------
+ nmap <C-J> <C-W><C-J>  			" <Ctrl+J> go to split down
+ nmap <C-K> <C-W><C-K>				" <Ctrl+K> go to split Up
+ nmap <C-H> <C-W><C-H>  			" <Ctrl+H> go to split left
+ nmap <C-L> <C-W><C-L>  			" <Ctrl+L> go to split right
  
 " ------------- editing config files ---------------
  nmap <leader>ev :tabedit $MYVIMRC<cr> 		" edit my vimrc file
- nmap <leader>et :tabedit ~/.tmux.conf<cr> 		" edit my tmux config file
+ nmap <leader>et :tabedit ~/.tmux.conf<cr> 	" edit my tmux config file
 
 " -------------auto-commands ------------------------
- if has("autocmd")
-  autocmd BufWritePost .vimrc source $MYVIMRC	" automatic source the vimrc on save.
- endif
+if has ('autocmd')				"Remain compatible with earlier version
+ augroup reload_vimrc  
+	autocmd! BufWritePost $MYVIMRC source $MYVIMRC | echom "reloaded " . $MYVIMRC | redraw	" automatic source the vimrc on save.
+ augroup END  
+ endif 				"has autocmd
 "
 "*******************************
 " VARIOUS PLUGIN CONFIGURATIONS
@@ -254,8 +296,4 @@ let g:ConqueGdb_Leader = '/'
 syntax enable
 set background=dark			" quite a bit easier to read under direct sunlight.
 colorscheme solarized		   	" this is my favorite one ;-)
-
-
-
-
 
