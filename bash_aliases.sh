@@ -5,6 +5,7 @@ alias apt-get="sudo apt-get"
 alias update="apt-get update && apt-get upgrade"
 alias bashrc="nano ~/.bashrc && source ~/.bashrc"
 alias fstab="sudo nano /etc/fstab"
+alias netI="sudo nano /etc/network/interfaces"
 
 alias ls="ls --color=auto"
 alias ll="ls -lhA"
