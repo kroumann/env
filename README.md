@@ -6,8 +6,8 @@ Its purpose is to automatically install all the utilities and tools on a fresh i
 Script contain:
 
 bin:
-     - Contains script for xilinx's tools configuration and launch.
-     - 
+    - Contains script for xilinx's tools configuration and launch.
+    -
 elnx:
     - Contains utilities scripts for embedded linux development.
 vim:
