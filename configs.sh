@@ -91,7 +91,7 @@ done
 
 # Main logic
 
-graceful_exit
+#graceful_exit
 
 export PATH=/home/kourouma/.setup/env-configs/bin:$PATH
 for fl in /home/kourouma/.setup/env-configs/env/*; do source $fl; done
