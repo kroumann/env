@@ -137,6 +137,10 @@ done
 
 # Main logic
 
+if [ ! -d "$PWD/bin" ]; then
+	mkdir "$PWD/bin"
+fi
+
 # install bin files ...
 if ! grep -Fq -- "export PATH=$PWD/bin:\$PATH" configs.sh; then
 
