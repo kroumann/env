@@ -156,7 +156,7 @@ sfdisk_ver=`sfdisk --version | awk '{ print $4 }'`
 if [ $(ver $sfdisk_ver) -lt $(ver 2.26.2) ]; then
         CYLINDERS=`echo $SIZE/255/63/512 | bc`
         echo "CYLINDERS – $CYLINDERS"
-        SFDISK_CMD="sfdisk --force -D -uS -H255 -S63 -C ${CYLINDERS}"
+        SFDISK_CMD="sfdisk -D -H 255 -S 63 -C ${CYLINDERS}"
 else
         SFDISK_CMD="sfdisk"
 fi
@@ -169,22 +169,40 @@ dd if=/dev/zero of=$DRIVE bs=1024 count=1024
 # Minimum required 2 partitions
 # Sectors are 512 bytes
 # 0     : 64KB, no partition, MBR then empty
-# 128   : 64 MB, FAT partition, bootloader 
-# 131200: 2GB+, linux partition, root filesystem
+# 9     : 70 MB, FAT partition, bootloader 
+# 9     : 2GB+, linux partition, root filesystem
 
 echo -e "\n=== Creating 2 partitions ===\n"
 {
-echo 128,131072,0x0C,*
-echo 131200,+,0x83,-
+echo ,9,0x0C,*
+echo ,,,-
 } | $SFDISK_CMD $DRIVE
 
 
 echo "Partitioning Boot..."
-mkfs.vfat -F 32 -n "boot" ${DRIVE}1
+if [ -b ${DRIVE}1 ]; then
+	mkfs.vfat -F 32 -n "boot" ${DRIVE}1
+else
+	if [ -b ${DRIVE}p1 ]; then
+		mkfs.vfat -F 32 -n "boot" ${DRIVE}p1
+	else
+		echo "cant find boot partition in /dev"
+		graceful_exit
+	fi
+fi
 echo "Done"
 
 echo "Partitioning Rootfs..."
-mkfs.ext3 -L "rootfs" ${DRIVE}2
+if [ -b ${DRIVE}2 ]; then
+	mke2fs -j -L "rootfs" ${DRIVE}2
+else
+	if [ -b ${DRIVE}p2 ]; then
+		mke2fs -j -L "rootfs" ${DRIVE}p2
+	else
+		echo "cant find rootfs partition in /dev"
+		graceful_exit
+	fi
+fi
 echo "Done"
 
 sync

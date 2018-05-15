@@ -16,6 +16,8 @@ alias histg="history | grep"
 alias vi="vim"
 alias edit="gvim"
 
+#remote com alias
+alias com="minicom -w"
 
 # System Aliases
 alias df="df -Tha --total"
