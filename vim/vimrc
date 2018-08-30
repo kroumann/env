@@ -102,6 +102,15 @@ let mapleader=','			" change the leader key to colon. Much easier
 " BUFFERS, WINDOWS
 "===================================================================================
 "
+" Copy/Paste from PRIMARY register: 
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+"
+" Copy/Paste from CLIPBARD register:
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+"
+"
 "-------------------------------------------------------------------------------
 " Leave the editor with Ctrl-q (KDE): Write all changed buffers and exit Vim
 "-------------------------------------------------------------------------------
@@ -178,7 +187,7 @@ imap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly &&
 "-------------------------------------------------------------------------------
 " Leave the editor with Ctrl-C : Write all changed buffers and exit Vim
 "-------------------------------------------------------------------------------
-nmap  <C-C>    :wqa<CR>
+nmap  <C-Q>    :wqa<CR>
 "
 "-------------------------------------------------------------------------------
 " comma always followed by a space
