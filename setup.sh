@@ -29,6 +29,7 @@ user=${SUDO_USER:-$(whoami)}
 HOME_BASHRC="/home/$user/.bashrc"
 RT_BASHRC="/root/.bashrc"
 src_cfg_file="source $PWD/configs.sh"
+tmux_alias_fl="source $PWD/tmux/tmux_aliases.sh"
 clean_up() { # Perform pre-exit housekeeping
   return
 }
