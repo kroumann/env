@@ -19,6 +19,9 @@ alias edit="gvim"
 #remote com alias
 alias com="minicom -w"
 
+#search functions
+function ufind { find . -name '*.[chS]' | xargs egrep -n "$1"; }
+
 # System Aliases
 alias df="df -Tha --total"
 alias du="du -ach | sort -h"

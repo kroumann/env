@@ -37,7 +37,7 @@ Plugin 'vim-airline/vim-airline-themes'	" airline themes
 Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
 Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
 Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
-""Plugin 'brookhong/cscope'
+Plugin 'chazy/cscope_maps'          " Cscope for references and definitions search
 Plugin 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
 
 call vundle#end()			" all the plugin should be added before this 
