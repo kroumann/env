@@ -30,7 +30,16 @@ else
   export PS1='\n[\[\033[32m\] $(__droppath "\w" 30) \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]'
 fi
 
+# tmux patch for dynamic window title
+# this requires: 'setw -g automatic-rename on' in your tmux.conf file 
 
+# settitle() {
+#    printf "\033k$1\033\\"
+# }
+
+# dynamic_window_title='${USER}@${PWD:${#PWD}<25?0:(-25)}'
+# PROMPT_COMMAND='case $TERM in (screen*) eval prompt=$dynamic_window_title; settitle "$prompt"; esac'
+#_________________
 
 #export PS1= "\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$"
 #export PS1="\n[\[\033[32m\] \w \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]"

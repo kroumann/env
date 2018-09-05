@@ -123,6 +123,15 @@ if has("autocmd")
   autocmd BufEnter * :lchdir %:p:h
 endif
 "
+"
+"------------------------------------------------------------------------------
+" Tmux automatic windows rename with current editing file. 
+" This should be completed with some extra in tmux config file
+" --------------------------------------------------------------------------
+ if has("autocmd")
+	 autocmd BufReadPost,FileReadPost,BufNewFile * 
+				 \ call system("tmux rename-window " . expand("%:t"))
+ endif
 "-------------------------------------------------------------------------------
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
