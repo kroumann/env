@@ -33,7 +33,7 @@ Plugin 'zeis/vim-kolor'			" optimal visibility of element within file
 Plugin 'majutsushi/tagbar'		"tagbar to browse tags of the current file and 
 					" get overview of its struct.
 Plugin 'vim-airline/vim-airline'	" Lean & mean status/tabline for vim that's light as air.
-Plugin 'vim-airline/vim-airline-themes'	" airline themes
+Plugin 'vim-airline/vim-airline-themes'	" airline themeg
 Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
 Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
 Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
@@ -123,14 +123,27 @@ if has("autocmd")
   autocmd BufEnter * :lchdir %:p:h
 endif
 "
-"
+"-------------------------------------------------------------------------------
+"Cleanup windows name when leaving vim as the next cmd rename windows
+"-------------------------------------------------------------------------------
+
+" if has("autocmd")
+"	autocmd VimLeave * call system("tmux rename-window '" . expand("%:t") . "'")
+"	autocmd VimLeave * Call system("tmux setw automatic-rename")
+" endif
+
+
 "------------------------------------------------------------------------------
 " Tmux automatic windows rename with current editing file. 
 " This should be completed with some extra in tmux config file
 " --------------------------------------------------------------------------
  if has("autocmd")
-	 autocmd BufReadPost,FileReadPost,BufNewFile * 
-				 \ call system("tmux rename-window " . expand("%:t"))
+	 autocmd BufReadPost,FileReadPost,BufNewFile,TabEnter * 
+				 \ call system("tmux rename-window 'vim:" . expand("%:t") ."'")
+	autocmd VimLeave *
+				\ call system("tmux rename-window ' " . expand("%:t") ."'")
+"	autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+	set title 
  endif
 "-------------------------------------------------------------------------------
 " When editing a file, always jump to the last known cursor position.
@@ -243,12 +256,13 @@ xnoremap  `  s``<Esc>P<Right>
  
 " ------------- editing config files ---------------
  nmap <leader>ev :tabedit $MYVIMRC<cr> 		" edit my vimrc file
+ noremap <leader>sv :so $MYVIMRC<cr>		" source vimrc file when done editing
  nmap <leader>et :tabedit ~/.tmux.conf<cr> 	" edit my tmux config file
 
 " -------------auto-commands ------------------------
 if has ('autocmd')				"Remain compatible with earlier version
- augroup reload_vimrc  
-	autocmd! BufWritePost $MYVIMRC source $MYVIMRC | echom "reloaded " . $MYVIMRC | redraw	" automatic source the vimrc on save.
+ augroup vimrc  
+	autocmd! BufWritePost $MYVIMRC source % | echom "reloaded " . $MYVIMRC | redraw	" automatic source the vimrc on save.
  augroup END  
  endif 				"has autocmd
 "
