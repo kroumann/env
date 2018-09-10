@@ -137,13 +137,24 @@ endif
 " Tmux automatic windows rename with current editing file. 
 " This should be completed with some extra in tmux config file
 " --------------------------------------------------------------------------
+" let &titlestring = hostname() . "[vim(" . expand("%:t") . ")]"
+" if &term == "screen"
+"  set t_ts=k
+"  set t_fs=\
+" endif
+" if &term == "screen" || &term == "xterm"
+"  set title
+"  set titleold=
+" endif
+
  if has("autocmd")
 	 autocmd BufReadPost,FileReadPost,BufNewFile,TabEnter * 
-				 \ call system("tmux rename-window 'vim:" . expand("%:t") ."'")
+				 \ call system("tmux rename-window 'vim(" . expand("%:t") .")'")
 	autocmd VimLeave *
-				\ call system("tmux rename-window ' " . expand("%:t") ."'")
+				\ call system("tmux rename-window 'bash'")
+"				\ call system("tmux rename-window '" . expand("%:p:h:t") ."'")
 "	autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-	set title 
+"	set title 
  endif
 "-------------------------------------------------------------------------------
 " When editing a file, always jump to the last known cursor position.
