@@ -30,6 +30,9 @@ HOME_BASHRC="/home/$user/.bashrc"
 RT_BASHRC="/root/.bashrc"
 src_cfg_file="source $PWD/configs.sh"
 tmux_alias_fl="source $PWD/tmux/tmux_aliases.sh"
+tmux_fl="~/.tmux.conf"
+vimrc_fl="/home/$user/.vimrc"
+git_fl="~/.gitconfig"
 clean_up() { # Perform pre-exit housekeeping
   return
 }
@@ -170,8 +173,27 @@ bin_folder_inst "$PWD/tools"
 bin_file_inst "$PWD/tools"
 
 # vim environment install
+if [ ! -f $vimrc_fl ]; then
+	ln -sf $PWD/vim/vimrc $vimrc_fl	
+else
+	echo "vimrc already installed."	
+fi
 
 # tmux env install
+if [ ! -f $tmux_fl]; then
+	ln -sf $PWD/tmux/tmux.conf $tmux_fl	
+	bashrc_install "tmux_alias_fl" "$HOME_BASHRC"
+else
+	echo "tmux configs already installed."	
+fi
+
+# git configuration file install 
+if [ ! -f $git_fl ]; then
+	ln -sf $PWD/git/gitconfig $git_fl
+else
+	echo "gitconfig already installed."	
+fi
+
 
 echo "installing configs in bashrc files..."
 bashrc_install "$src_cfg_file" "$HOME_BASHRC"
