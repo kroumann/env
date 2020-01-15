@@ -1,9 +1,9 @@
 #!/bin/bash
 # ---------------------------------------------------------------------------
-# configs.sh - 
+# configs.sh -
 
 # Copyright 2018, kourouma,,, <kourouma@DebianDevOs>
-  
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -58,7 +58,7 @@ usage() {
 help_message() {
   cat <<- _EOF_
   $PROGNAME ver. $VERSION
-  
+
 
   $(usage)
 
@@ -70,8 +70,8 @@ _EOF_
 }
 
 # Trap signals
-trap "signal_exit TERM" TERM HUP
-trap "signal_exit INT"  INT
+#trap "signal_exit TERM" TERM HUP
+#trap "signal_exit INT"  INT
 
 
 
@@ -93,7 +93,12 @@ done
 
 #graceful_exit
 
-export PATH=/home/kourouma/.setup/env-configs/bin:$PATH
+export PATH=/home/mamady.kourouma/.setup/env-configs/bin:$PATH
 export PATH=/usr/local/texlive/2017/bin/x86_64-linux:$PATH
-#export MANPATH=/home/kourouma/.setup/env-configs/bin:$PATH
-for fl in /home/kourouma/.setup/env-configs/env/*; do source $fl; done
+export MANPATH=/home/kourouma/.setup/env-configs/bin:$PATH
+for fl in /home/mamady.kourouma/.setup/env-configs/env/*; do source $fl; done
+export PATH=/home/mamady.kourouma/.setup/env-configs/bin:$PATH
+for fl in /home/mamady.kourouma/.setup/env-configs/env/*; do source $fl; done
+source /home/mamady.kourouma/.setup/env-configs/tmux/tmux_aliases.sh
+
+
