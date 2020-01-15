@@ -24,10 +24,17 @@ function __droppath {
     fi
 }
 
+# Configure `__git_ps1` to tell us as much as possible
+export GIT_PS1_SHOWDIRTYSTATE=1 GIT_PS1_SHOWSTASHSTATE=1 GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM=verbose GIT_PS1_DESCRIBE_STYLE=branch GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_HIDE_IF_PWD_IGNORED=1
+
+
 if [ "`id -u`" -eq 0 ]; then
-  export PS1='\n[\[\033[31m\] $(__droppath "\w" 30) \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]'
+    export PS1='\n[\[\033[31m\] $(__droppath "\w" 30)\[\e[0m\e[1;33m\]$(__git_ps1 " (%s)") \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]'
 else
-  export PS1='\n[\[\033[32m\] $(__droppath "\w" 30) \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]'
+    export PS1='\n[\[\033[32m\] $(__droppath "\w" 30)\[\e[0m\e[1;33m\]$(__git_ps1 " (%s)") \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]'
+#    export PS1='\n[\[\033[32m\] $(__droppath "\w" 30) \[\033[0m\]]\[\033[0m\]\n\[\033[1;36m\]\u@\h: \[\033[1;34m\]\$ \[\033[0m\]'
 fi
 
 # tmux patch for dynamic window title
