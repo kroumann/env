@@ -93,12 +93,9 @@ done
 
 #graceful_exit
 
-export PATH=/home/mamady.kourouma/.setup/env-configs/bin:$PATH
+export PATH=/home/kourouma/.setup/env-configs/bin:$PATH
 export PATH=/usr/local/texlive/2017/bin/x86_64-linux:$PATH
-export MANPATH=/home/kourouma/.setup/env-configs/bin:$PATH
-for fl in /home/mamady.kourouma/.setup/env-configs/env/*; do source $fl; done
-export PATH=/home/mamady.kourouma/.setup/env-configs/bin:$PATH
-for fl in /home/mamady.kourouma/.setup/env-configs/env/*; do source $fl; done
-source /home/mamady.kourouma/.setup/env-configs/tmux/tmux_aliases.sh
+#export MANPATH=/home/kourouma/.setup/env-configs/bin:$PATH
+for fl in /home/kourouma/.setup/env-configs/env/*; do source $fl; done
 
 
