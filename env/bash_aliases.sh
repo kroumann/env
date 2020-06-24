@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Common aliases
-alias apt-get="sudo apt-get"
-alias update="apt-get update && apt-get upgrade"
+alias apt="sudo apt"
+alias update="apt update && apt upgrade"
 alias bashrc="nano ~/.bashrc && source ~/.bashrc"
 alias fstab="sudo nano /etc/fstab"
 alias netI="sudo nano /etc/network/interfaces"
@@ -71,4 +71,9 @@ fi
 rsyncb() {
     rsync -Przzuve ssh "$1"/* "$2"
     rsync -Przzuve ssh "$2"/* "$1"
+}
+
+# binary diff using colordiff command
+bdiff() {
+    colordiff -y <(xxd "$1") <(xxd "$2")
 }
