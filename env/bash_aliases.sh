@@ -68,3 +68,7 @@ fi
 }
 
 
+rsyncb() {
+    rsync -Przzuve ssh "$1"/* "$2"
+    rsync -Przzuve ssh "$2"/* "$1"
+}
