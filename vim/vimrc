@@ -319,7 +319,7 @@ let g:airline_right_sep = '◀'		" the separator used on the right side <
 	
 
 "" YOUCOMPLETEME
-let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
 
 "" SYNTASTIC 
 set statusline+=%#warningmsg#

@@ -1,9 +1,9 @@
 [user]
 	name = kourouma
-	email = kroumann@gmail.com
-	username = kroumann
+	email = mkroumann@sequans.com
+	username = mkourouma
 [core]
-	editor = vim
+	editor = geany -imnst
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 [push]
@@ -24,10 +24,19 @@
 	added = green bold
 	changed = yellow bold
 	untracked = red bold
-[diff]
-	tool = vimdiff
+[difftool "kdiff3"]
+	tool = kdiff3
+	trustExitCode = false
 [difftool]
 	prompt = false
+[diff]
+	tool = kdiff3
+[mergetool "mymeld"]
+        cmd=meld --diff "$BASE" "$LOCAL" --diff "$BASE" "$REMOTE" --diff "$LOCAL" "$MERGED" "$REMOTE"
+	trustExitCode = false
+[merge]
+        tool = mymeld
+        conflictstyle = diff3
 [github]
 	user = kroumann
 	token = token
@@ -104,8 +113,8 @@
 	mc = merge --continue
 	ms = merge --skip
 	#############
-	o = checkout
-	ob = checkout -b
+	co = checkout
+	cob = checkout -b
 	#############
 	pr = prune -v
 	#############
