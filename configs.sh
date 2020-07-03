@@ -93,9 +93,4 @@ done
 
 #graceful_exit
 
-export PATH=/home/kourouma/.setup/env-configs/bin:$PATH
-export PATH=/usr/local/texlive/2017/bin/x86_64-linux:$PATH
-#export MANPATH=/home/kourouma/.setup/env-configs/bin:$PATH
-for fl in /home/kourouma/.setup/env-configs/env/*; do source $fl; done
-
 
