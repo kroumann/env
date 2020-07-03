@@ -31,6 +31,7 @@ RT_BASHRC="/root/.bashrc"
 src_cfg_file="source $PWD/configs.sh"
 tmux_alias_fl="source $PWD/tmux/tmux_aliases.sh"
 tmux_fl="/home/$user/.tmux.conf"
+tmux_fl_local="/home/$user/.tmux.conf.local"
 vimrc_fl="/home/$user/.vimrc"
 git_fl="/home/$user/.gitconfig"
 clean_up() { # Perform pre-exit housekeeping
@@ -184,10 +185,25 @@ else
 	echo "already installed."	
 fi
 
+# install powerline status bar
+echo -n "installing powerline status bar..."
+if [ `ls -1 $PWD/bin/powerline-* 2>/dev/null | wc -l ` -gt 0 ];
+then
+    echo "already installed."
+else
+	for f in $PWD/tools/powerline/scripts/powerline-*; 
+		do
+			ln -sf $f $PWD/bin; 
+		done
+	echo "done"
+fi
+
+
 # tmux env install
 echo -n "installing tmux files... "
 if [ ! -f $tmux_fl ]; then
-	ln -sf $PWD/tmux/tmux.conf $tmux_fl	
+	ln -s -f $PWD/tmux/tmux.conf $tmux_fl
+	ln -s -f $PWD/tmux/.tmux.conf.local $tmux_fl_local	
 	echo "$tmux_alias_fl" >> configs.sh
 	echo "done"
 else
@@ -202,6 +218,7 @@ if [ ! -f $git_fl ]; then
 else
 	echo "already installed."	
 fi
+
 
 
 echo "installing configs in bashrc files..."
