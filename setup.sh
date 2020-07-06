@@ -34,6 +34,7 @@ tmux_fl="/home/$user/.tmux.conf"
 tmux_fl_local="/home/$user/.tmux.conf.local"
 vimrc_fl="/home/$user/.vimrc"
 git_fl="/home/$user/.gitconfig"
+oh_my_zsh="/home/$user/.oh-my-zsh"
 clean_up() { # Perform pre-exit housekeeping
   return
 }
@@ -213,7 +214,7 @@ fi
 # git configuration file install 
 echo -n "installing gitconfig file ... "
 if [ ! -f $git_fl ]; then
-	ln -sf $PWD/git/gitconfig $git_fl
+	ln -s -f $PWD/git/gitconfig $git_fl
 	echo "done"
 else
 	echo "already installed."	
@@ -226,6 +227,9 @@ bashrc_install "$src_cfg_file" "$HOME_BASHRC"
 source $HOME_BASHRC
 bashrc_install "$src_cfg_file" "$RT_BASHRC"
 source $RT_BASHRC
+
+echo "installing oh_my_zsh custom aliases..."
+
 
 graceful_exit
 
