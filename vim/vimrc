@@ -26,8 +26,8 @@ call vundle#begin()			" alternatively, pass a path where vundle
 Plugin 'VundleVim/Vundle.vim'		" let vundle manage vundle, this is required
 
 "" PLUGINS
-Plugin 'Valloric/YouCompleteMe'		" autocompletion plugin
-Plugin 'flazz/vim-colorschemes'		" Color schemes plugin
+"Plugin 'Valloric/YouCompleteMe'		" autocompletion plugin
+"Plugin 'flazz/vim-colorschemes'		" Color schemes plugin
 Plugin 'scrooloose/nerdtree'		" nerdtree for exploration
 Plugin 'zeis/vim-kolor'			" optimal visibility of element within file
 Plugin 'majutsushi/tagbar'		"tagbar to browse tags of the current file and 
@@ -35,10 +35,12 @@ Plugin 'majutsushi/tagbar'		"tagbar to browse tags of the current file and
 Plugin 'vim-airline/vim-airline'	" Lean & mean status/tabline for vim that's light as air.
 Plugin 'vim-airline/vim-airline-themes'	" airline themeg
 Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
-Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
+"Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
 Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
 Plugin 'chazy/cscope_maps'          " Cscope for references and definitions search
-Plugin 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
+Plugin 'altercation/vim-colors-solarized' " Solarized color scheme for vim
+Plugin 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
+""Plugin 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
 
 call vundle#end()			" all the plugin should be added before this 
 					" line
@@ -281,6 +283,17 @@ if has ('autocmd')				"Remain compatible with earlier version
 " VARIOUS PLUGIN CONFIGURATIONS
 "*******************************
 "
+" Make CtrlP uses ripgrep (rg) has its finding engin.
+if executable('rg')
+	let g:ctrl_user_command = 'rg %s --files --hidden --color=never --glob ""'
+endif
+
+" search through opened buffers using ctrlP
+nnoremap <Leader>b :CtrlPBuffer<CR>
+
+" zsh as default shell
+set shell=/usr/bin/zsh
+
 "" SOLARIZED
 "let g:solarized_termcolors=256 		"16/256
 "let g:solarized_termtrans=1
@@ -327,8 +340,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:airline_section_c = airline#section#create('%t')
 	
@@ -337,6 +350,6 @@ let g:ConqueGdb_Leader = '/'
 
 "" COLOR SCHEME
 syntax enable
-set background=dark			" quite a bit easier to read under direct sunlight.
-colorscheme solarized		   	" this is my favorite one ;-)
+"set background=dark			" quite a bit easier to read under direct sunlight.
+"colorscheme solarized		   	" this is my favorite one ;-)
 

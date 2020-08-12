@@ -94,3 +94,8 @@ done
 #graceful_exit
 
 
+export PATH=/home/mkourouma/.env/bin:$PATH
+# for fl in /home/mkourouma/.env/env/*; do source $fl; done
+# source "/home/mkourouma/.env/env/aliases."
+source /home/mkourouma/.env/tmux/tmux_aliases.sh
+
