@@ -101,7 +101,7 @@ bin_file_inst() {
 		fname=${fl##*/}
 		if [ -f $fl ]; then
 			if [ ! -f $PWD/bin/${fname%.sh} ]; then
-				ln -s $fl $PWD/bin/${fname%.sh}
+				ln -sf $fl $PWD/bin/${fname%.sh}
 			fi
 		fi
 	done
