@@ -36,7 +36,7 @@ Plugin 'vim-airline/vim-airline'	" Lean & mean status/tabline for vim that's lig
 Plugin 'vim-airline/vim-airline-themes'	" airline themeg
 Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
 "Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
-Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
+"Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
 Plugin 'chazy/cscope_maps'          " Cscope for references and definitions search
 Plugin 'altercation/vim-colors-solarized' " Solarized color scheme for vim
 Plugin 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
@@ -78,7 +78,7 @@ set laststatus=2			" always show the statusline.
 "set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 set mouse=a                     	" enable the use of the mouse
 set nowrap                      	" do not wrap lines
-set number							" enable line numbering
+set number				" enable line numbering
 set popt=left:8pc,right:3pc     	" print options
 set ruler                       	" show the cursor position all the time
 set shiftwidth=4                	" number of spaces to use for each step of indent
@@ -87,7 +87,7 @@ set showcmd                     	" display incomplete commands
 set smartindent                 	" smart autoindenting when starting a new line
 set tabstop=4                   	" number of spaces that a <Tab> counts for
 set t_Co=256				" enable 256 color in vim.
-set ttyfast				" the current terminal is a fast terminal (to do 						" more stuff at once)
+set ttyfast				" the current terminal is a fast terminal (to do more stuff at once)
 set updatetime=1000			" Update time of many VIM things.(reasonable value)
 set undofile				" save undo's file closes
 set undodir=$HOME/.vim/undo		" where to save undo histories
@@ -174,6 +174,7 @@ endif " has("autocmd")
 " Leave the editor with Ctrl-q : Write all changed buffers and exit Vim
 "-------------------------------------------------------------------------------
 nmap  <C-q>    :wqa<CR>
+nmap  <C-Q>    :wqa<CR>
 "
 "-------------------------------------------------------------------------------
 " comma always followed by a space
@@ -218,16 +219,6 @@ imap  <silent> <F8>   <Esc>:cn<CR>
      \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 imap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly && 
      \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
-"
-"-------------------------------------------------------------------------------
-" Leave the editor with Ctrl-C : Write all changed buffers and exit Vim
-"-------------------------------------------------------------------------------
-nmap  <C-Q>    :wqa<CR>
-"
-"-------------------------------------------------------------------------------
-" comma always followed by a space
-"-------------------------------------------------------------------------------
-inoremap  ,  ,<Space>
 "
 "-------------------------------------------------------------------------------
 " Jump to opening closing parenthesis, square bracket or brace 
@@ -337,14 +328,14 @@ let &tags=$CTAGS_DB
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 
 "" SYNTASTIC 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
 "let g:airline_section_c = airline#section#create('%t')
 	
 "" CONQUEGDB
