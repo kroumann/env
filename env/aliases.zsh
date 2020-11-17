@@ -74,3 +74,8 @@ rsyncb() {
 bdiff() {
     colordiff -y <(xxd "$1") <(xxd "$2")
 }
+
+# update display env var in tmux when lost
+function udisplay {
+	export DISPLAY="`tmux show-env | sed -n 's/^DISPLAY=//p'`"
+}
