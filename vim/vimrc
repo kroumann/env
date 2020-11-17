@@ -29,6 +29,7 @@ Plugin 'VundleVim/Vundle.vim'		" let vundle manage vundle, this is required
 "Plugin 'Valloric/YouCompleteMe'		" autocompletion plugin
 "Plugin 'flazz/vim-colorschemes'		" Color schemes plugin
 Plugin 'scrooloose/nerdtree'		" nerdtree for exploration
+Plugin 'preservim/nerdcommenter'	" comment lines,  functions,  blocks ...
 Plugin 'zeis/vim-kolor'			" optimal visibility of element within file
 Plugin 'majutsushi/tagbar'		"tagbar to browse tags of the current file and 
 					" get overview of its struct.
@@ -37,11 +38,18 @@ Plugin 'vim-airline/vim-airline-themes'	" airline themeg
 Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
 "Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
 "Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
-Plugin 'chazy/cscope_maps'          " Cscope for references and definitions search
+"Plugin 'chazy/cscope_maps'          " Cscope for references and definitions search
 Plugin 'altercation/vim-colors-solarized' " Solarized color scheme for vim
 Plugin 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
 ""Plugin 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
-
+Plugin 'ycm-core/YouCompleteMe' 		" auto completion engine for vim
+Plugin 'prabirshrestha/async.vim'		" async jop control
+Plugin 'prabirshrestha/vim-lsp'			" vim-lsp
+Plugin 'pdavydov108/vim-lsp-cquery'		"vim-lsp-cquery 
+Plugin 'mileszs/ack.vim'				" search in vim 
+Plugin 'SirVer/ultisnips'				"Snippets engine	
+Plugin 'honza/vim-snippets' 			"snippets
+Plugin 'Yggdroot/indentLine'			" Displaying thin vertical lines at each indentation
 call vundle#end()			" all the plugin should be added before this 
 					" line
 
@@ -69,42 +77,49 @@ set backspace=indent,eol,start  	" backspacing over everything in insert mode
 set backup                      	" keep a backup file
 set browsedir=current           	" which directory to use for the file browser
 set complete+=k                 	" scan the files given with the 'dictionary' option
-set encoding=utf-8			" Usually necessary to show unicode glyphs.
+set encoding=utf-8					" Usually necessary to show unicode glyphs.
 set history=50                  	" keep 50 lines of command line history
 set hlsearch                    	" highlight the last used search pattern
 set incsearch                   	" do incremental searching
 set listchars=tab:>.,eol:\$     	" strings to use in 'list' mode
-set laststatus=2			" always show the statusline.
-"set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
+set laststatus=2					" always show the statusline.
 set mouse=a                     	" enable the use of the mouse
 set nowrap                      	" do not wrap lines
 set number				" enable line numbering
 set popt=left:8pc,right:3pc     	" print options
 set ruler                       	" show the cursor position all the time
 set shiftwidth=4                	" number of spaces to use for each step of indent
-set showmatch				" show match in current file
+set showmatch						" show match in current file
 set showcmd                     	" display incomplete commands
 set smartindent                 	" smart autoindenting when starting a new line
 set tabstop=4                   	" number of spaces that a <Tab> counts for
-set t_Co=256				" enable 256 color in vim.
-set ttyfast				" the current terminal is a fast terminal (to do more stuff at once)
-set updatetime=1000			" Update time of many VIM things.(reasonable value)
-set undofile				" save undo's file closes
-set undodir=$HOME/.vim/undo		" where to save undo histories
-set undolevels=1000			" how many undo is possible
-set undoreload=1000			" number of lines to save for undo
+set noexpandtab						" use tab for tabulation not spaces
+set t_Co=256						" enable 256 color in vim.
+set ttyfast							" the current terminal is a fast terminal (to do more stuff at once)
+set updatetime=1000					" Update time of many VIM things.(reasonable value)
+set undofile						" save undo's file closes
+set undodir=$HOME/.vim/undo			" where to save undo histories
+set undolevels=1000					" how many undo is possible
+set undoreload=1000					" number of lines to save for undo
 set visualbell                 		" visual bell instead of beeping
 set wildignore=*.bak,*.o,*.e,*~ 	" wildmenu: ignore these extensions
 set wildmenu                    	" command-line completion in an enhanced mode
 "
-"" GENERAL CONFIGURATION 
+" show trailing whitespaces with a red bar
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+
+"
+"
+" GENERAL CONFIGURATION
 let mapleader=','			" change the leader key to colon. Much easier
 "
 "===================================================================================
 " BUFFERS, WINDOWS
 "===================================================================================
 "
-" Copy/Paste from PRIMARY register: 
+" Copy/Paste from PRIMARY register:
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 "
@@ -136,7 +151,7 @@ endif
 
 
 "------------------------------------------------------------------------------
-" Tmux automatic windows rename with current editing file. 
+" Tmux automatic windows rename with current editing file.
 " This should be completed with some extra in tmux config file
 " --------------------------------------------------------------------------
 " let &titlestring = hostname() . "[vim(" . expand("%:t") . ")]"
@@ -150,13 +165,13 @@ endif
 " endif
 
  if has("autocmd")
-	 autocmd BufReadPost,FileReadPost,BufNewFile,TabEnter * 
+	 autocmd BufReadPost,FileReadPost,BufNewFile,TabEnter *
 				 \ call system("tmux rename-window 'vim(" . expand("%:t") .")'")
 	autocmd VimLeave *
 				\ call system("tmux rename-window 'bash'")
 "				\ call system("tmux rename-window '" . expand("%:p:h:t") ."'")
 "	autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-"	set title 
+"	set title
  endif
 "-------------------------------------------------------------------------------
 " When editing a file, always jump to the last known cursor position.
@@ -185,16 +200,16 @@ inoremap  ,  ,<Space>
 "  some additional hot keys
 "-------------------------------------------------------------------------------
 "    F2   -  write file without confirmation
-"    F3   -  call file explorer Ex
+"    F3   -  NERDCommenter toggle comment ON/OFF
 "    F4   -  show tag under curser in the preview window (tagfile must exist!)
 "    F5   -  open quickfix error window
 "    F6   -  close quickfix error window
 "    F7   -  display previous error
-"    F8   -  display next error   
+"    F8   -  display next error
 "-------------------------------------------------------------------------------
 "
 map   <silent> <F2>        :write<CR>
-map   <silent> <F3>        :Explore<CR>
+map   <silent> <F3>        :call NERDComment('n', 'Toggle')<CR>j
 nmap  <silent> <F4>        :exe ":ptag ".expand("<cword>")<CR>
 map   <silent> <F5>        :copen<CR>
 map   <silent> <F6>        :cclose<CR>
@@ -202,7 +217,7 @@ map   <silent> <F7>        :cp<CR>
 map   <silent> <F8>        :cn<CR>
 "
 imap  <silent> <F2>   <Esc>:write<CR>
-imap  <silent> <F3>   <Esc>:Explore<CR>
+imap  <silent> <F3>   <Esc>:call NERDComment('n', 'Toggle')<CR>j
 imap  <silent> <F4>   <Esc>:exe ":ptag ".expand("<cword>")<CR>
 imap  <silent> <F5>   <Esc>:copen<CR>
 imap  <silent> <F6>   <Esc>:cclose<CR>
@@ -221,6 +236,7 @@ imap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly &&
      \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 "
 "-------------------------------------------------------------------------------
+
 " Jump to opening closing parenthesis, square bracket or brace 
 "-------------------------------------------------------------------------------
 nnoremap % v%
@@ -270,6 +286,51 @@ if has ('autocmd')				"Remain compatible with earlier version
  augroup END  
  endif 				"has autocmd
 "
+"----------------------------------- vim-lsp-----------------------------------
+" make sur cquery is installed. infos in : https://github.com/jacobdufault/cquery
+let g:lsp_auto_enable = 1
+" We don't want our quickfix list always spammed with diagnostics
+let g:lsp_diagnostics_enabled = 0
+" highlight references to the symbol under the cursor
+let g:lsp_highlight_references_enabled = 1
+
+" vim-lsp logging for debug purpose
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" per-buffer stuff
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+	"refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+"-------------------------- cquery c/c++ -----------------------------------
+" cquery registering in .vimrc
+if executable('cquery')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'cquery',
+      \ 'cmd': {server_info->['cquery']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+     \ })
+ endif
+
 "*******************************
 " VARIOUS PLUGIN CONFIGURATIONS
 "*******************************
@@ -284,6 +345,20 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 
 " zsh as default shell
 set shell=/usr/bin/zsh
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
 
 "" SOLARIZED
 "let g:solarized_termcolors=256 		"16/256
@@ -322,7 +397,7 @@ let g:airline_left_sep = '▶'		" the separator used on the left side >
 let g:airline_right_sep = '◀'		" the separator used on the right side <
 	
 "" CTAGS + CSCOPE
-let &tags=$CTAGS_DB
+" let &tags=$CTAGS_DB
 "
 "" YOUCOMPLETEME
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
@@ -340,6 +415,19 @@ let g:ycm_server_python_interpreter = '/usr/bin/python3'
 	
 "" CONQUEGDB
 let g:ConqueGdb_Leader = '/'
+
+"" VIM LSP (Language server protocol) cquery
+autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fv :LspCqueryDerived<CR>
+autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fc :LspCqueryCallers<CR>
+autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fb :LspCqueryBase<CR>
+autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fi :LspCqueryVars<CR>
+
+" navigate in tabs with arrows 
+noremap <leader>h gT
+noremap <leader>l gt
+"nnoremap <C-Left> :tabprevious<CR>
+"nnoremap <C-Right> :tabnext<CR>
+
 
 "" COLOR SCHEME
 syntax enable
