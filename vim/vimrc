@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')	"  Specify a directory for plugins and initili
 					" call vundle#begin('~/some/path/here')
 "Plugin 'VundleVim/Vundle.vim'		" let vundle manage vundle, this is required
 
+Plugin 'sukima/xmledit'                 " xml documents completion and tag jumping
 
 
 " Plugin 'scrooloose/nerdtree'		" nerdtree for exploration
@@ -59,10 +60,6 @@ call plug#end()				" Initialize plugin system
 "
 "
 "
-filetype  plugin on			" Enable file type detection. 
-					" Use the default filetype 
-					" settings.
-filetype  indent on 			" Load indent files, to automatically do 
 					" language-dependent indenting.
 "
 syntax  on  				" Switch syntax highlighting on.
@@ -72,11 +69,13 @@ syntax  on  				" Switch syntax highlighting on.
 "	 VARIOUS SETTINGS
 "*******************************
 "
-set autoindent                  	" copy indent from current line
+"set autoindent                  	" copy indent from current line
 set autoread                    	" read open files again when changed outside Vim
 set autowrite                   	" write a modified buffer on each :next , ...
 set backspace=indent,eol,start  	" backspacing over everything in insert mode
 set backup                      	" keep a backup file
+set backupdir=~/.vim/tmp//,.        " backup file into separate folder
+"set directory=~/.vim/tmp//,.        " save swp file to separate folder
 set browsedir=current           	" which directory to use for the file browser
 set complete+=k                 	" scan the files given with the 'dictionary' option
 set encoding=utf-8					" Usually necessary to show unicode glyphs.
@@ -90,12 +89,9 @@ set nowrap                      	" do not wrap lines
 set number				" enable line numbering
 set popt=left:8pc,right:3pc     	" print options
 set ruler                       	" show the cursor position all the time
-set shiftwidth=4                	" number of spaces to use for each step of indent
 set showmatch						" show match in current file
 set showcmd                     	" display incomplete commands
-set smartindent                 	" smart autoindenting when starting a new line
-set tabstop=4                   	" number of spaces that a <Tab> counts for
-set noexpandtab						" use tab for tabulation not spaces
+"set smartindent                 	" smart autoindenting when starting a new line
 set t_Co=256						" enable 256 color in vim.
 set ttyfast							" the current terminal is a fast terminal (to do more stuff at once)
 set updatetime=1000					" Update time of many VIM things.(reasonable value)
@@ -121,9 +117,9 @@ let mapleader=','			" change the leader key to colon. Much easier
 " BUFFERS, WINDOWS
 "===================================================================================
 "
-" Copy/Paste from PRIMARY register:
-noremap <Leader>y "*y
-noremap <Leader>p "*p
+" Copy/Paste between session (primary register replacement):
+vmap <Leader>y :w! /tmp/mvitmp<CR>
+nmap <Leader>p :r! cat /tmp/mvitmp<CR>
 "
 " Copy/Paste from CLIPBARD register:
 noremap <Leader>Y "+y
@@ -143,14 +139,14 @@ if has("autocmd")
 endif
 "
 "-------------------------------------------------------------------------------
-"Cleanup windows name when leaving vim as the next cmd rename windows
+" Triger autoreload and notify on file change on disk
 "-------------------------------------------------------------------------------
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+    \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
-" if has("autocmd")
-"	autocmd VimLeave * call system("tmux rename-window '" . expand("%:t") . "'")
-"	autocmd VimLeave * Call system("tmux setw automatic-rename")
-" endif
-
+" Notification after file change
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 "------------------------------------------------------------------------------
 " Tmux automatic windows rename with current editing file.
@@ -208,23 +204,27 @@ inoremap  ,  ,<Space>
 "    F6   -  close quickfix error window
 "    F7   -  display previous error
 "    F8   -  display next error
+"    F9   -  enable spell check
 "-------------------------------------------------------------------------------
 "
 map   <silent> <F2>        :write<CR>
-map   <silent> <F3>        :call NERDComment('n', 'Toggle')<CR>j
+map   <silent> <F3>        :call nerdcommenter#Comment('n', 'Toggle')<CR>j
 nmap  <silent> <F4>        :exe ":ptag ".expand("<cword>")<CR>
 map   <silent> <F5>        :copen<CR>
 map   <silent> <F6>        :cclose<CR>
 map   <silent> <F7>        :cp<CR>
 map   <silent> <F8>        :cn<CR>
+map   <silent> <F9>        :set spell! spelllang=en_us<CR>
 "
+
 imap  <silent> <F2>   <Esc>:write<CR>
-imap  <silent> <F3>   <Esc>:call NERDComment('n', 'Toggle')<CR>j
+imap  <silent> <F3>   <Esc>:call nerdcommenter#Comment('n', 'Toggle')<CR>j
 imap  <silent> <F4>   <Esc>:exe ":ptag ".expand("<cword>")<CR>
 imap  <silent> <F5>   <Esc>:copen<CR>
 imap  <silent> <F6>   <Esc>:cclose<CR>
 imap  <silent> <F7>   <Esc>:cp<CR>
 imap  <silent> <F8>   <Esc>:cn<CR>
+imap  <silent> <F9>   <Esc>:set spell! spelllang=en_us<CR>
 "
 "-------------------------------------------------------------------------------
 " Fast switching between buffers
@@ -232,9 +232,9 @@ imap  <silent> <F8>   <Esc>:cn<CR>
 " Choose :bprevious or :bnext
 "-------------------------------------------------------------------------------
 "
- map  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly && 
-     \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
-imap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly && 
+nnoremap  <silent> <tab>  <Esc>:if &modifiable && !&readonly && 
+     \                  &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  <Esc>:if &modifiable && !&readonly && 
      \                  &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 "
 "-------------------------------------------------------------------------------
@@ -337,6 +337,10 @@ if executable('cquery')
 " VARIOUS PLUGIN CONFIGURATIONS
 "*******************************
 "
+" Use Ack! with bang
+nnoremap <Leader>a :Ack!<Space>
+"
+"
 " Make CtrlP uses ripgrep (rg) has its finding engin.
 if executable('rg')
 	let g:ctrl_user_command = 'rg %s --files --hidden --color=never --glob ""'
@@ -383,9 +387,18 @@ let g:C_MapLeader = ','
 "let g:kolor_alternative_matchparen=0    " Gray 'MatchParen' color. Default: 0
 
 "" NERDTREE
-map <leader>n :NERDTreeTabsToggle<CR>	" change leader key stroke
-"let g:NERDTreeDirArrowExpandable = "▸"
-"let g:NERDTreeDirArrowCollapsible = "▾"	
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+"map <leader>n :NERDTreeTabsToggle<CR>	" change leader key stroke
+let g:NERDTreeDirArrowExpandable = "▸"
+let g:NERDTreeDirArrowCollapsible = "▾"
+
+" If another buffer tries to replace NERDTree,  put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 ""TAGBAR
 map <leader>tb :TagbarToggle<CR>	" tagbar toggling shortcut
