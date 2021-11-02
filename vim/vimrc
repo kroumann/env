@@ -26,7 +26,7 @@ call plug#begin('~/.vim/plugged')	"  Specify a directory for plugins and initili
 					" call vundle#begin('~/some/path/here')
 "Plugin 'VundleVim/Vundle.vim'		" let vundle manage vundle, this is required
 
-Plugin 'sukima/xmledit'                 " xml documents completion and tag jumping
+Plug 'sukima/xmledit'                 " xml documents completion and tag jumping
 
 
 " Plugin 'scrooloose/nerdtree'		" nerdtree for exploration
@@ -41,7 +41,7 @@ Plug 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
 "Plug 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
 "Plug 'chazy/cscope_maps'          " Cscope for references and definitions search
 Plug 'altercation/vim-colors-solarized' " Solarized color scheme for vim
-Plug 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
+"Plug 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
 Plug 'junegunn/fzf.vim'	            " fzf love vim
 "Plug 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
 "Plug 'ycm-core/YouCompleteMe' 		" auto completion engine for vim
