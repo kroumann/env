@@ -104,4 +104,4 @@ export PATH=$GOROOT/bin:$PATH
 export PATH=$HOME/.local/node-v12.18.3-linux-x64/bin:$PATH
 # for fl in /home/mkourouma/.env/env/*; do source $fl; done
 # source "/home/mkourouma/.env/env/aliases."
-source /home/mkourouma/.env/tmux/tmux_aliases.sh
+# source /home/mkourouma/.env/tmux/tmux_aliases.sh

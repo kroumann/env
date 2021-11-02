@@ -16,47 +16,49 @@ set nocompatible			" Use Vim settings, rather then Vi settings.
 					" This must be first, because it changes 
 					" other options 
 					" as a side effect.
-"
-"" VUNDLE  INITIALIZATION
-set rtp+=~/.vim/bundle/Vundle.vim	" set the runtime path to include Vundle 
-					" and initilize
-call vundle#begin()			" alternatively, pass a path where vundle
+"install vim plug			" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+					"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+"" PLUGINS					
+call plug#begin('~/.vim/plugged')	"  Specify a directory for plugins and initilize
+
 					" should install plugins
 					" call vundle#begin('~/some/path/here')
-Plugin 'VundleVim/Vundle.vim'		" let vundle manage vundle, this is required
+"Plugin 'VundleVim/Vundle.vim'		" let vundle manage vundle, this is required
 
-"" PLUGINS
-"Plugin 'Valloric/YouCompleteMe'		" autocompletion plugin
-"Plugin 'flazz/vim-colorschemes'		" Color schemes plugin
-Plugin 'scrooloose/nerdtree'		" nerdtree for exploration
-Plugin 'preservim/nerdcommenter'	" comment lines,  functions,  blocks ...
-Plugin 'zeis/vim-kolor'			" optimal visibility of element within file
-Plugin 'majutsushi/tagbar'		"tagbar to browse tags of the current file and 
+
+
+" Plugin 'scrooloose/nerdtree'		" nerdtree for exploration
+" Plugin 'preservim/nerdcommenter'	" comment lines,  functions,  blocks ...
+" Plugin 'zeis/vim-kolor'			" optimal visibility of element within file
+" Plugin 'majutsushi/tagbar'		"tagbar to browse tags of the current file and 
 					" get overview of its struct.
-Plugin 'vim-airline/vim-airline'	" Lean & mean status/tabline for vim that's light as air.
-Plugin 'vim-airline/vim-airline-themes'	" airline themeg
-Plugin 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
-"Plugin 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
-"Plugin 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
-"Plugin 'chazy/cscope_maps'          " Cscope for references and definitions search
-Plugin 'altercation/vim-colors-solarized' " Solarized color scheme for vim
-Plugin 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
-""Plugin 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
-Plugin 'ycm-core/YouCompleteMe' 		" auto completion engine for vim
-Plugin 'prabirshrestha/async.vim'		" async jop control
-Plugin 'prabirshrestha/vim-lsp'			" vim-lsp
-Plugin 'pdavydov108/vim-lsp-cquery'		"vim-lsp-cquery 
-Plugin 'mileszs/ack.vim'				" search in vim 
-Plugin 'SirVer/ultisnips'				"Snippets engine	
-Plugin 'honza/vim-snippets' 			"snippets
-Plugin 'Yggdroot/indentLine'			" Displaying thin vertical lines at each indentation
-call vundle#end()			" all the plugin should be added before this 
-					" line
-
-"call pathogen#infect()			" load other plugins from bundle subfolder
-"call pathogen#helptags()		" generate documentation for all plugins in bundle 
-					" subfolder
-
+Plug 'vim-airline/vim-airline'	" Lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline-themes'	" airline themeg
+Plug 'jistr/vim-nerdtree-tabs'	"NERDTree and tabs together in Vim, painlessly
+"Plug 'vim-scripts/Conque-GDB'		" embed an interactive shell inside vim, that is used by GDB
+"Plug 'scrooloose/syntastic'		" Syntastic is a syntax checking plugin for Vim
+"Plug 'chazy/cscope_maps'          " Cscope for references and definitions search
+Plug 'altercation/vim-colors-solarized' " Solarized color scheme for vim
+Plug 'ctrlpvim/ctrlp.vim'				"Fuzzy file finder for vim
+Plug 'junegunn/fzf.vim'	            " fzf love vim
+"Plug 'rdnetto/YCM-Generator' 	    " script to generate compiler flags from a project
+"Plug 'ycm-core/YouCompleteMe' 		" auto completion engine for vim
+Plug 'prabirshrestha/async.vim'		" async jop control
+Plug 'prabirshrestha/vim-lsp'			" vim-lsp
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'	" auto-completion with asyncomplete	
+Plug 'prabirshrestha/asyncomplete-lsp.vim'    " auto-completion with asyncomplete
+""Plug 'pdavydov108/vim-lsp-cquery'		"vim-lsp-cquery 
+Plug 'mileszs/ack.vim'				" search in vim 
+Plug 'SirVer/ultisnips'				"Snippets engine	
+Plug 'honza/vim-snippets' 			"snippets
+""Plug 'Yggdroot/indentLine'			" Displaying thin vertical lines at each indentation
+call plug#end()				" Initialize plugin system
+"
+"
+"
+"
 filetype  plugin on			" Enable file type detection. 
 					" Use the default filetype 
 					" settings.
