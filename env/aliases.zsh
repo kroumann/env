@@ -79,3 +79,7 @@ bdiff() {
 function udisplay {
 	export DISPLAY="`tmux show-env | sed -n 's/^DISPLAY=//p'`"
 }
+
+function mount_shares {
+	sudo /usr/bin/vmhgfs-fuse .host:/ /home/kourouma/shares -o subtype=vmhgfs-fuse,allow_other
+}
