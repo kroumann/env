@@ -95,8 +95,8 @@ let g:which_key_map.s = {
 			\ 'z' : [':FZF'                      ,  'FZF'],
 			\ }
 
-" P is for vim-plug
-let g:which_key_map.p = {
+" x is for vim-plug
+let g:which_key_map.x = {
 			\ 'name' : '+plug' ,
 			\ 'i' : [':PlugInstall'              ,  'install'],
 			\ 'u' : [':PlugUpdate'               ,  'update'],
@@ -334,11 +334,11 @@ xnoremap  `  s``<Esc>P<Right>
 "
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<C-n>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 
 " If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
 
 " make YCM compatible with UltiSnips (using supertab)
 " let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']

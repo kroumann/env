@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # tmux session setup script template. can be used as an entry point to create tmux session 
 # for specific project. The name of the session is passed as a parameter of this script.
