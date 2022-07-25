@@ -11,37 +11,43 @@
 "*****************************
 "
 "" VIM
-set nocompatible							" Use Vim settings, rather then Vi settings.
-											" This must be first, because it changes
-											" other options
-											" as a side effect.
-"install vim plug							" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-											"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+set nocompatible									" Use Vim settings, rather then Vi settings.
+													" This must be first, because it changes
+													" other options
+													" as a side effect.
+"install vim plug									" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+													"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 "" PLUGINS
-call plug#begin('~/.vim/plugged')			"  Specify a directory for plugins and initilize
+call plug#begin('~/.vim/plugged')					"  Specify a directory for plugins and initilize
 
-Plug 'sukima/xmledit'                		" xml documents completion and tag jumping
-Plug 'preservim/nerdtree'					" nerdtree for exploration
-Plug 'preservim/nerdcommenter'				" comment lines,  functions,  blocks ...
-Plug 'vim-airline/vim-airline'				" Lean & mean status/tabline for vim that's light as air.
-Plug 'vim-airline/vim-airline-themes'		" airline themeg
-Plug 'altercation/vim-colors-solarized' 	" Solarized color scheme for vim
+Plug 'mileszs/ack.vim'								" search in vim
+Plug 'sukima/xmledit'                				" xml documents completion and tag jumping
+Plug 'preservim/nerdtree'							" nerdtree for exploration
+Plug 'preservim/nerdcommenter'						" comment lines,  functions,  blocks ...
+Plug 'vim-airline/vim-airline'						" Lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline-themes'				" airline themeg
+Plug 'altercation/vim-colors-solarized' 			" Solarized color scheme for vim
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }  "Ensure we have latest fzf
-Plug 'junegunn/fzf.vim'						" fzf love vim
-Plug 'prabirshrestha/async.vim'				" async jop control
-Plug 'prabirshrestha/vim-lsp'				" vim-lsp
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'		" auto-completion with asyncomplete
-Plug 'prabirshrestha/asyncomplete-lsp.vim'  " auto-completion with asyncomplete
-Plug 'mileszs/ack.vim'						" search in vim
-Plug 'SirVer/ultisnips'						" Snippets engine
-Plug 'honza/vim-snippets' 					" snippets
-Plug 'psf/black'							" black plugin for python code formating
-Plug 'ludovicchabant/vim-gutentags'			" vim tags files managements
-Plug 'skywind3000/gutentags_plus'			" works with gutentags and provides seemless databases switching
-Plug 'liuchengxu/vim-which-key'				" displays available keybindings in popup
-call plug#end()								" Initialize plugin system
+Plug 'junegunn/fzf.vim'								" fzf love vim
+Plug 'prabirshrestha/async.vim'						" async jop control
+Plug 'prabirshrestha/vim-lsp'						" vim-lsp
+Plug 'mattn/vim-lsp-settings'						" easy  setup language servers using vim-lsp
+Plug 'jackguo380/vim-lsp-cxx-highlight'				" semantic highlighting for clang using vim-lsp
+"Plug 'neoclide/coc.nvim',  {'branch': 'release'}	" conquerer of completion
+													"required for vim-lsp-cxx-highlight requires recent version of vim
+Plug 'prabirshrestha/asyncomplete.vim'				" auto-completion with asyncomplete
+Plug 'prabirshrestha/asyncomplete-lsp.vim'  		" auto-completion with asyncomplete
+Plug 'SirVer/ultisnips'								" Snippets engine
+Plug 'honza/vim-snippets' 							" snippets
+Plug 'thomasfaingnaert/vim-lsp-snippets'			" snippets integration in vim-lsp
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'			" ultispnips integration in vim-lsp
+Plug 'psf/black'									" black plugin for python code formating
+Plug 'ludovicchabant/vim-gutentags'					" vim tags files managements
+Plug 'skywind3000/gutentags_plus'					" works with gutentags and provides seemless databases switching
+Plug 'liuchengxu/vim-which-key'						" displays available keybindings in popup
+Plug 'tpope/vim-obsession'							" continuously updated session files
+call plug#end()										" Initialize plugin system
 "
 "
 "********************

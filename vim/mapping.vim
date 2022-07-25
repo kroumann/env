@@ -17,7 +17,7 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles<CR>
 
-"-- guttentag and guttentag plus --"
+"------------------------ guttentag and guttentag plus ------------------------"
 " enable gtags module
 let g:gutentags_modules = ['ctags', 'gtags_cscope']
 
@@ -33,8 +33,7 @@ let g:gutentags_plus_switch = 1
 " You can disable the default keymaps by:
 let g:gutentags_plus_nomap = 1
 
-
-"---------------------------- vim-which-key -------------------------------"
+"---------------------------- vim-which-key -----------------------------------"
 " Register which key map
 call which_key#register(',',  "g:which_key_map")
 
@@ -123,6 +122,7 @@ let g:which_key_map.w = {
 			\ '=' : ['<C-W>='     , 'balance-window']        ,
 			\ 's' : ['<C-W>s'     , 'split-window-below']    ,
 			\ 'v' : ['<C-W>v'     , 'split-window-below']    ,
+			\ 'r'  : ['<C-W>r'	  , 'rotate-windows']		 ,
 			\ '?' : ['Windows'    , 'fzf-window']            ,
 			\ }
 
@@ -235,8 +235,8 @@ let g:which_key_map.f.r = {
 "-------------------------------------------------------------------------------
 " Leave the editor with Ctrl-q : Write all changed buffers and exit Vim
 "-------------------------------------------------------------------------------
-" nmap  <C-q>    :waq<CR>
-" nmap  <C-Q>    :waq<CR>
+nmap  <C-q>    :waq<CR>
+nmap  <C-Q>    :waq<CR>
 "
 "-------------------------------------------------------------------------------
 " comma always followed by a space
@@ -311,27 +311,8 @@ xnoremap  '  s''<Esc>P<Right>
 xnoremap  "  s""<Esc>P<Right>
 xnoremap  `  s``<Esc>P<Right>
 "
-"-------------------------------------------------------------------------------
-" VIM command mappings
-"-------------------------------------------------------------------------------
-"
-" ---------------set split position---------------------------------------------
- ""set splitbelow
- ""set splitright
 
- " --------------Split navigation management------------------------------------
-" <Ctrl+J> go to split down
-" <Ctrl+K> go to split Up
-" <Ctrl+H> go to split left
-" <Ctrl+L> go to split right
- "nmap <C-J> <C-W><C-J>
- "nmap <C-K> <C-W><C-K>
- "nmap <C-H> <C-W><C-H>
- "nmap <C-L> <C-W><C-L>
-
-" Tag navigatio remap for multi keyboards support
-"noremap oo <C-]>
-"
+"--------------------------- vim-lsp / ultisnip / snippet  ----------------------"
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<C-n>"
@@ -339,6 +320,24 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+if executable('clangd')
+	augroup vim_lsp_cpp
+		autocmd!
+		autocmd User lsp_setup call lsp#register_server({
+					\ 'name': 'clangd', 
+					\ 'cmd': {server_info->['clangd']}, 
+					\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp',  'cc'], 
+					\ })
+		autocmd FileType c, cpp, objc, objcpp, cc setlocal omnifunc=lsp#complete
+	augroup end
+endif
+
+set completeopt+=menuone
+
+
+" disable coc plugin warning for vim version
+let g:coc_disable_startup_warning = 1
 
 " make YCM compatible with UltiSnips (using supertab)
 " let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']

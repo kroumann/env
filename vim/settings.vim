@@ -20,9 +20,9 @@ syntax  on  				" Switch syntax highlighting on.
 "*******************************
 "
 "
-set shiftwidth=4			" control how many columns text is indented with the reindent operations (<< and >>)
-set tabstop=4				" how many columns a tab counts for (when using tab spaced)
-set noexpandtab    			" Use tab for tabulation, not spaces
+set shiftwidth=4					" control how many columns text is indented with the reindent operations (<< and >>)
+set tabstop=4						" how many columns a tab counts for (when using tab spaced)
+set noexpandtab    					" Use tab for tabulation, not spaces
 "set autoindent                  	" copy indent from current line
 set autoread                    	" read open files again when changed outside Vim
 set autowrite                   	" write a modified buffer on each :next , ...
@@ -40,7 +40,7 @@ set listchars=tab:>.,eol:\$     	" strings to use in 'list' mode
 set laststatus=2					" always show the statusline.
 set mouse=a                     	" enable the use of the mouse
 set nowrap                      	" do not wrap lines
-set number				" enable line numbering
+set number							" enable line numbering
 set popt=left:8pc,right:3pc     	" print options
 set ruler                       	" show the cursor position all the time
 set showmatch						" show match in current file
