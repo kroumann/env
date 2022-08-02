@@ -321,19 +321,19 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-if executable('clangd')
-	augroup vim_lsp_cpp
-		autocmd!
-		autocmd User lsp_setup call lsp#register_server({
-					\ 'name': 'clangd', 
-					\ 'cmd': {server_info->['clangd']}, 
-					\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp',  'cc'], 
-					\ })
-		autocmd FileType c, cpp, objc, objcpp, cc setlocal omnifunc=lsp#complete
-	augroup end
-endif
+"if executable('clangd')
+	"augroup vim_lsp_cpp
+		"autocmd!
+		"autocmd User lsp_setup call lsp#register_server({
+					"\ 'name': 'clangd', 
+					"\ 'cmd': {server_info->['clangd']}, 
+					"\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp',  'cc'], 
+					"\ })
+		"autocmd FileType c, cpp, objc, objcpp, cc setlocal omnifunc=lsp#complete
+	"augroup end
+"endif
 
-set completeopt+=menuone
+"set completeopt+=menuone
 
 
 " disable coc plugin warning for vim version
