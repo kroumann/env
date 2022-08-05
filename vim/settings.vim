@@ -56,9 +56,6 @@ set visualbell                 		" visual bell instead of beeping
 set wildignore=*.bak,*.o,*.e,*~ 	" wildmenu: ignore these extensions
 set wildmenu                    	" command-line completion in an enhanced mode
 "
-" show trailing whitespaces with a red bar
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
 filetype plugin on
 "
 "

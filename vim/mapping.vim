@@ -32,6 +32,8 @@ let g:gutentags_plus_switch = 1
 
 " You can disable the default keymaps by:
 let g:gutentags_plus_nomap = 1
+" enable log for gutentags
+"let g:gutentags_define_advanced_commands = 1
 
 "---------------------------- vim-which-key -----------------------------------"
 " Register which key map
@@ -64,7 +66,8 @@ let g:which_key_use_floating_win = 1
 "let g:which_key_map['k'] = [ ':FloatermNew k9s'                 ,  'k9s']
 "let g:which_key_map['t'] = [ ':FloatermNew'                     ,  'terminal']
 "let g:which_key_map['v'] = [ '<C-W>v'                           ,  'split right']
-"
+
+
 " s is for search
 let g:which_key_map.s = {
 			\ 'name' : '+search' ,
@@ -143,16 +146,16 @@ let g:which_key_map.b = {
 " l for lsp
 let g:which_key_map.l = {
 			\ 'name' : '+lsp',
-			\ 'f' : ['spacevim#lang#util#Format()'          , 'formatting']       ,
+			\ 'f' : ['LspFormat'          , 'formatting']       ,
 			\ 'r' : ['spacevim#lang#util#FindReferences()'  , 'references']       ,
-			\ 'R' : ['spacevim#lang#util#Rename()'          , 'rename']           ,
-			\ 's' : ['spacevim#lang#util#DocumentSymbol()'  , 'document-symbol']  ,
+			\ 'R' : ['LspRename'	  , 'rename']           ,
+			\ 's' : ['LspStatus'  , 'lsp status']  ,
 			\ 'S' : ['spacevim#lang#util#WorkspaceSymbol()' , 'workspace-symbol'] ,
 			\ 'g' : {
 			\ 'name': '+goto',
-			\ 'd' : ['spacevim#lang#util#Definition()'     , 'definition']      ,
-			\ 't' : ['spacevim#lang#util#TypeDefinition()' , 'type-definition'] ,
-			\ 'i' : ['spacevim#lang#util#Implementation()' , 'implementation']  ,
+			\ 'd' : ['LspDefinition'     , 'definition']      ,
+			\ 't' : ['LspTypeDefinition' , 'type-definition'] ,
+			\ 'i' : ['LspImplementation' , 'implementation']  ,
 			\ },
 			\ }
 
@@ -218,6 +221,30 @@ let g:which_key_map.f.r = {
 			\ 'name' : '+reload',
 			\ 'v'	: 'reload vimrc',
 			\}
+
+" Remove trailing whitespaces
+nnoremap <silent> <leader>fcs :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>"
+let g:which_key_map.f.c = {
+			\ 'name' : '+cleanup',
+			\ 's': 'whitespaces',
+		 	\ }
+
+" Open browser to search a word
+let g:which_key_map.o = {'name' : '+open'}
+nnoremap <silent> <leader>obc :call openbrowser#smart_search(expand('<cword>'),  "cppreference")<CR>
+let g:which_key_map.o.b = {
+			\ 'name' : '+browser-search',
+			\ 'c'    : 'cppreference',
+			\ }
+
+
+"----------------------- VISTA Plug-------------------------------------------"
+
+let g:vista_default_executive = 'vim_lsp'
+
+" toggle vista split
+execute "set <M-t>=\et"
+nnoremap <silent> <M-t> :Vista!!<CR>
 
 "nnoremap <silent> <leader>et :tabedit ~/.tmux.conf<cr> 	" edit my tmux config file
 
@@ -321,17 +348,20 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-"if executable('clangd')
-	"augroup vim_lsp_cpp
-		"autocmd!
-		"autocmd User lsp_setup call lsp#register_server({
-					"\ 'name': 'clangd', 
-					"\ 'cmd': {server_info->['clangd']}, 
-					"\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp',  'cc'], 
-					"\ })
-		"autocmd FileType c, cpp, objc, objcpp, cc setlocal omnifunc=lsp#complete
-	"augroup end
-"endif
+if executable('clangd')
+	augroup vim_lsp_cpp
+		autocmd!
+		autocmd User lsp_setup call lsp#register_server({
+					\ 'name': 'clangd', 
+					\ 'cmd': {server_info->['clangd']}, 
+					\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp',  'cc'], 
+					\ })
+		autocmd FileType c setlocal omnifunc=lsp#complete
+		autocmd FileType cpp setlocal omnifunc=lsp#complete
+		autocmd FileType objc setlocal omnifunc=lsp#complete
+		autocmd FileType objcpp setlocal omnifunc=lsp#complete
+	augroup end
+endif
 
 "set completeopt+=menuone
 
@@ -373,7 +403,7 @@ let g:coc_disable_startup_warning = 1
 "map <leader>tb :TagbarToggle<CR>	" tagbar toggling shortcut
 "
 "" PLUGIN VIM-AIRLINE
-"let g:airline#extensions#tabline#enable = 1	" Enable smarter tab line
+"let g:airline#extensions#tabline#enabled = 1	" Enable smarter tab line
 "let g:airline#extensions#tabline#left_alt_sep = '>' " tab line separator
 "let g:airline_powerline_fonts = 1	" please install powerline-fonts before using
 					" this line.
