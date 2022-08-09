@@ -29,7 +29,7 @@ set autowrite                   	" write a modified buffer on each :next , ...
 set backspace=indent,eol,start  	" backspacing over everything in insert mode
 set backup                      	" keep a backup file
 set backupdir=~/.vim/tmp//,.        " backup file into separate folder
-"set directory=~/.vim/tmp//,.        " save swp file to separate folder
+set directory=~/.vim/tmp//,.        " save swp file to separate folder
 set browsedir=current           	" which directory to use for the file browser
 set complete+=k                 	" scan the files given with the 'dictionary' option
 set encoding=utf-8					" Usually necessary to show unicode glyphs.

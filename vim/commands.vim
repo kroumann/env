@@ -2,9 +2,9 @@
 "-------------------------------------------------------------------------------
 " The current directory is the directory of the file in the current window.
 "-------------------------------------------------------------------------------
-if has("autocmd")
-  autocmd BufEnter * :lchdir %:p:h
-endif
+"if has("autocmd")
+  "autocmd BufEnter * :lchdir %:p:h
+"endif
 "
 "-------------------------------------------------------------------------------
 " Triger autoreload and notify on file change on disk

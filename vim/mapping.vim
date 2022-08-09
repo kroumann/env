@@ -246,6 +246,11 @@ let g:vista_default_executive = 'vim_lsp'
 execute "set <M-t>=\et"
 nnoremap <silent> <M-t> :Vista!!<CR>
 
+"-------------------------Undotree---------------------------------------------"
+" toggle undotree
+execute "set <M-u>=\eu"
+nnoremap <silent> <M-u> :UndotreeToggle<CR>
+
 "nnoremap <silent> <leader>et :tabedit ~/.tmux.conf<cr> 	" edit my tmux config file
 
 " Copy/Paste from CLIPBARD register:
