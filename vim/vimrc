@@ -34,7 +34,7 @@ Plug 'prabirshrestha/vim-lsp'						" vim-lsp
 Plug 'mattn/vim-lsp-settings'						" easy  setup language servers using vim-lsp
 Plug 'bfrg/vim-cpp-modern'							" Enhanced C and C++ syntax highlighting
 Plug 'prabirshrestha/asyncomplete.vim'				" auto-completion with asyncomplete
-Plug 'prabirshrestha/asyncomplete-lsp.vim'  		" auto-completion with asyncomplete
+Plug 'prabirshrestha/asyncomplete-lsp.vim'  		" LSP source for asyncomplete.vim and vim-lsp
 Plug 'SirVer/ultisnips'								" Snippets engine
 Plug 'honza/vim-snippets' 							" snippets
 Plug 'thomasfaingnaert/vim-lsp-snippets'			" snippets integration in vim-lsp
@@ -47,7 +47,7 @@ Plug 'liuchengxu/vista.vim'							" View and search LSP symbols,  tags in Vim/Ne
 "Plug 'neoclide/coc.nvim',  {'branch': 'release'}	" conquerer of completion
 Plug 'tpope/vim-fugitive'							" Fugitive is the premier Vim plugin for Git.
 Plug 'mbbill/undotree'								" visualizes undo history
-													" required for vim-lsp-cxx-highlight requires recent version of vim
+Plug 'vhda/verilog_systemverilog.vim'				" Syntax Plugin for Verilog and SystemVerilog
 call plug#end()										" Initialize plugin system
 "
 "

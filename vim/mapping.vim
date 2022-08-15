@@ -14,8 +14,8 @@ function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
-command! ProjectFiles execute 'Files' s:find_git_root()
-nnoremap <silent> <C-p> :ProjectFiles<CR>
+"command! ProjectFiles execute 'Files' s:find_git_root()
+"nnoremap <silent> <C-p> :ProjectFiles<CR>
 
 "------------------------ guttentag and guttentag plus ------------------------"
 " enable gtags module
@@ -146,16 +146,19 @@ let g:which_key_map.b = {
 " l for lsp
 let g:which_key_map.l = {
 			\ 'name' : '+lsp',
-			\ 'f' : ['LspFormat'          , 'formatting']       ,
-			\ 'r' : ['spacevim#lang#util#FindReferences()'  , 'references']       ,
-			\ 'R' : ['LspRename'	  , 'rename']           ,
-			\ 's' : ['LspStatus'  , 'lsp status']  ,
+			\ 'f' : ['LspFormat'      , 'formatting']  ,
+			\ 'K' : ['LspHover'  	  , 'hover']       ,
+			\ 'R' : ['LspRename'	  , 'rename']      ,
+			\ 's' : ['LspStatus'      , 'lsp status']  ,
 			\ 'S' : ['spacevim#lang#util#WorkspaceSymbol()' , 'workspace-symbol'] ,
 			\ 'g' : {
 			\ 'name': '+goto',
-			\ 'd' : ['LspDefinition'     , 'definition']      ,
-			\ 't' : ['LspTypeDefinition' , 'type-definition'] ,
-			\ 'i' : ['LspImplementation' , 'implementation']  ,
+			\ 'd' : ['LspDefinition'         , 'definition']       ,
+			\ 's' : ['LspDocumentSymbol'     , 'document-symbol']  ,
+			\ 'S' : ['LspWorkspaceSymbol'    , 'workspace-symbol'] ,
+			\ 'r' : ['LspReferences'         , 'references']       ,
+			\ 't' : ['LspTypeDefinition'     , 'type-definition']  ,
+			\ 'i' : ['LspImplementation'     , 'implementation']   ,
 			\ },
 			\ }
 
@@ -354,12 +357,12 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 let g:UltiSnipsEditSplit="vertical"
 
 if executable('clangd')
-	augroup vim_lsp_cpp
+	augroup vim_lsp_clangd
 		autocmd!
 		autocmd User lsp_setup call lsp#register_server({
-					\ 'name': 'clangd', 
-					\ 'cmd': {server_info->['clangd']}, 
-					\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp',  'cc'], 
+					\ 'name': 'clangd',
+					\ 'cmd': {server_info->['clangd']},
+					\ 'whitelist': ['c',  'cpp',  'objc',  'objcpp'],
 					\ })
 		autocmd FileType c setlocal omnifunc=lsp#complete
 		autocmd FileType cpp setlocal omnifunc=lsp#complete
@@ -368,89 +371,10 @@ if executable('clangd')
 	augroup end
 endif
 
-"set completeopt+=menuone
+"--------------------------asyncomplete--------------------------------------------"
+"Tab completion
 
 
-" disable coc plugin warning for vim version
-let g:coc_disable_startup_warning = 1
 
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
-
-"" SOLARIZED
-"let g:solarized_termcolors=256 		"16/256
-"let g:solarized_termtrans=1
-"let g:solarized_degrade=0 		"For test purpose only
-"let g:solarized_bold=1
-"let g:solarized_underline=0
-"let g:solarized_italic=1
-"let g:solarized_contrast="high" 	"low/normal/high
-"let g:solarized_visibility="high" 	"low/normal/high
-"call togglebg#map("<F9>")
-"
-"" C-SUPPORT
-"let g:C_MapLeader = ','
-"
-"" PLUGIN Kolor
-"let g:kolor_italic=1                    " Enable italic. Default: 1
-"let g:kolor_bold=1                      " Enable bold. Default: 1
-"let g:kolor_underlined=0                " Enable underline. Default: 0
-"let g:kolor_alternative_matchparen=0    " Gray 'MatchParen' color. Default: 0
-
-" If another buffer tries to replace NERDTree,  put it in the other window, and bring back NERDTree.
-"autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    "\ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-""TAGBAR
-"map <leader>tb :TagbarToggle<CR>	" tagbar toggling shortcut
-"
-"" PLUGIN VIM-AIRLINE
-"let g:airline#extensions#tabline#enabled = 1	" Enable smarter tab line
-"let g:airline#extensions#tabline#left_alt_sep = '>' " tab line separator
-"let g:airline_powerline_fonts = 1	" please install powerline-fonts before using
-					" this line.
-"let g:airline_left_sep = '▶'		" the separator used on the left side >
-"let g:airline_right_sep = '◀'		" the separator used on the right side <
-
-"" CTAGS + CSCOPE
-" let &tags=$CTAGS_DB
-"
-"" YOUCOMPLETEME
-" let g:ycm_server_python_interpreter = '/usr/bin/python3'
-
-"" SYNTASTIC
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 0
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"let g:airline_section_c = airline#section#create('%t')
-
-"" CONQUEGDB
-"let g:ConqueGdb_Leader = '/'
-
-"" VIM LSP (Language server protocol) cquery
-"autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fv :LspCqueryDerived<CR>
-"autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fc :LspCqueryCallers<CR>
-"autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fb :LspCqueryBase<CR>
-"autocmd FileType c,cc,cpp,cxx,h,hpp nnoremap <leader>fi :LspCqueryVars<CR>
-
-" navigate in tabs with arrows 
-"noremap <leader>h gT
-"noremap <leader>l gt
-"nnoremap <C-Left> :tabprevious<CR>
-"nnoremap <C-Right> :tabnext<CR>
-
-
-"" COLOR SCHEME
-"syntax enable
-"set background=dark			" quite a bit easier to read under direct sunlight.
-"colorscheme solarized		   	" this is my favorite one ;-)
 
 
