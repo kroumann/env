@@ -36,7 +36,7 @@ let g:gutentags_plus_nomap = 1
 "let g:gutentags_define_advanced_commands = 1
 
 "---------------------------- vim-which-key -----------------------------------"
-" Register which key map
+" Register leader for which key map
 call which_key#register(',',  "g:which_key_map")
 
 nnoremap <silent> <leader>      :<c-u>WhichKey ','<CR>

@@ -1,4 +1,13 @@
-"
+"------------------------------------------------------------------------------
+" Automatic toggling between line number modes
+" -----------------------------------------------------------------------------
+if has("autocmd")
+	augroup numbertoggle
+		autocmd!
+		autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+		autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+		augroup END
+endif
 "-------------------------------------------------------------------------------
 " The current directory is the directory of the file in the current window.
 "-------------------------------------------------------------------------------
