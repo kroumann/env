@@ -3,7 +3,7 @@
 # setup.sh - setup install env config scripts and utilities. It is an interactive script an
 
 # Copyright 2017, kourouma,,, <kourouma@DebianDevOs>
-  
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -90,14 +90,14 @@ bashrc_install() {
 		echo $1 >> $2
 		echo "$2: installed"
 	else
-		echo "${1#* }: reloaded" 
+		echo "${1#* }: reloaded"
 	fi
 }
 
 
 bin_file_inst() {
 	echo -n "installing ${1##*/} files... "
-	for fl in $1/*; do 
+	for fl in $1/*; do
 		fname=${fl##*/}
 		if [ -f $fl ]; then
 			if [ ! -f $PWD/bin/${fname%.sh} ]; then
@@ -111,7 +111,7 @@ bin_file_inst() {
 bin_folder_inst() {
 # assuming only 1 level of nested folders adopted
 echo "installing $1 subfolders... "
-	for fl in $1/*; do 
+	for fl in $1/*; do
 		if [ -d $fl ]; then
 			bin_file_inst $fl
 		fi
@@ -183,7 +183,7 @@ if [ ! -f $vimrc_fl ]; then
 	ln -sf $PWD/vim/vimrc $vimrc_fl
 	echo "done"
 else
-	echo "already installed."	
+	echo "already installed."
 fi
 
 # install powerline status bar
@@ -192,9 +192,9 @@ if [ `ls -1 $PWD/bin/powerline-* 2>/dev/null | wc -l ` -gt 0 ];
 then
     echo "already installed."
 else
-	for f in $PWD/tools/powerline/scripts/powerline-*; 
+	for f in $PWD/tools/powerline/scripts/powerline-*;
 		do
-			ln -sf $f $PWD/bin; 
+			ln -sf $f $PWD/bin;
 		done
 	echo "done"
 fi
@@ -203,21 +203,21 @@ fi
 # tmux env install
 echo -n "installing tmux files... "
 if [ ! -f $tmux_fl ]; then
-	ln -s -f $PWD/tmux/tmux.conf $tmux_fl
-	ln -s -f $PWD/tmux/.tmux.conf.local $tmux_fl_local	
-	echo "$tmux_alias_fl" >> configs.sh
+	ln -s -f $PWD/tmux/.tmux.conf $tmux_fl
+	ln -s -f $PWD/tmux/.tmux.conf.local $tmux_fl_local
+	#echo "$tmux_alias_fl" >> configs.sh
 	echo "done"
 else
-	echo "already installed."	
+	echo "already installed."
 fi
 
-# git configuration file install 
+# git configuration file install
 echo -n "installing gitconfig file ... "
 if [ ! -f $git_fl ]; then
 	ln -s -f $PWD/git/gitconfig $git_fl
 	echo "done"
 else
-	echo "already installed."	
+	echo "already installed."
 fi
 
 
