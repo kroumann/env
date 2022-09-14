@@ -55,6 +55,8 @@ set undoreload=1000					" number of lines to save for undo
 set visualbell                 		" visual bell instead of beeping
 set wildignore=*.bak,*.o,*.e,*~ 	" wildmenu: ignore these extensions
 set wildmenu                    	" command-line completion in an enhanced mode
+set background=dark					" background dark mode"
+colorscheme solarized				" use solarized color as default
 "
 filetype plugin on
 "
