@@ -1,3 +1,15 @@
+# You can put files here to add functionality separated per file, which
+# will be ignored by git.
+# Files on the custom/ directory will be automatically loaded by the init
+# script, in alphabetical order.
+
+# For example: add yourself some shortcuts to projects you often work on.
+#
+# brainstormr=~/Projects/development/planetargon/brainstormr
+# cd $brainstormr
+#
+alias algit="alias | grep $1"
+
 # Common aliases
 alias apt="sudo apt"
 alias update="apt update && apt upgrade"
@@ -29,6 +41,10 @@ alias ps="ps auxf"
 # make process searchable (e.g: psg bash)
 alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias mkdir="mkdir -pv"
+
+# find temporary files and delete 
+ff () { find $1 -type f -name "*~*" -exec rm -f {} +; }
+alias clean_tmp='ff $1'
 
 # This priceless function is from xvoland on github
 function extract {
@@ -67,25 +83,6 @@ function extract {
 fi
 }
 
-#tmux aliases
-
-#create new session with tmux script
-alias tmuxn="tmux.sh"
-# attach to existing session or create new one
-alias tmuxa=tmuxn
-# Lists all ongoing sessions
-alias tmuxl='tmux ls'
-#kill a session : e.g (tk test)
-alias tmuxk='tmux kill-session -t'
-#kill all tmux sessions:
-alias tmuxkall='tmux kill-server'
-
-# create session with composed name e.g: log[nrt]
-tmuxcs() {
-	sname=$(printf "%s[%s]" $1 $2)
-	tmuxn $sname
- }
-
 # extra alias for git
 alias algit="alias | grep $1"
 
@@ -110,6 +107,3 @@ function mount_shares {
 }
 
 
-#sequans aliases
-alias cartman='ssh -Y mkourouma@cartman.fr.sequans.com'
-alias cartman2='ssh -X mkourouma@cartman.fr.sequans.com'

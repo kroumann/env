@@ -1,0 +1,31 @@
+# vim: sw=4 ts=4
+
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- clean: ['~', '~/.oh-my-zsh/custom', '~/.oh-my-zsh/custom/plugins/']
+
+- shell:
+    - [sh pre-install.sh, Running pre installation script]
+    - [git submodule update --init --recursive, Installing submodules]
+    - [mkdir -p ~/devs, Creating devs directory]
+    - [mkdir -p ~/.oh-my-zsh/custom/, Creating oh-my-zsh custom folders]
+    - [mkdir -p ~/.oh-my-zsh/custom/plugins, Creating oh-my-zsh custom plugins folders]
+
+- link:
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux.conf.local: tmux/tmux.conf.local
+    ~/.vimrc: vim/vimrc
+    ~/.zshrc:
+        force: true
+        path: zsh/zshrc
+    ~/.gitconfig: git/gitconfig
+    ~/.oh-my-zsh/custom/plugins/krm: zsh/plugins/krm/
+    ~/.oh-my-zsh/custom/plugins/sqn: zsh/plugins/sqn/
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    - [vim +PluginInstall +qall, Installing Plug plugins]
+
