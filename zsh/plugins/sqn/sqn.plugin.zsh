@@ -45,6 +45,8 @@ alias tagit='ctags -R --extra=+q+f --exclude="tmp/*" --exclude="obj/*" --exclude
 alias nob='cd /home/mkourouma/nobackup'
 alias nobi='cd /home/mkourouma/nobackup/iceberg ; lrt'
 
+alias workdir='cd /data/PI/Z1/workdir'
+
 # cd to Pi results, display the 10 more recent directories
 alias nrt='cd /data/PI/testResults; ls -lrt | tail -n 10'
 alias nrtl='cd /home/mkourouma/nobackup/coca; ls -lrt | tail -n 10'

@@ -24,11 +24,11 @@ alias cd..="cd .."
 alias histg="history | grep"
 
 alias vi="vim"
-alias edit="gvim"
+alias edit="vim"
 
 #remote com alias
 alias com="minicom -w"
-
+alias ssh="TERM=xterm-256color ssh -Y"
 #search functions
 function ufind { find . -name '*.[chS]' | xargs egrep -n "$1"; }
 
