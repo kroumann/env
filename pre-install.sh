@@ -31,7 +31,6 @@ else
   upgrade_oh_my_zsh
 fi
 
-
 # Change default shell
 if [! $0 = "-zsh"]; then
   echo 'Changing default shell to zsh'
