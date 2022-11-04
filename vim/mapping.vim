@@ -35,6 +35,21 @@ let g:gutentags_plus_nomap = 1
 " enable log for gutentags
 "let g:gutentags_define_advanced_commands = 1
 
+"-----------------------------vim-gitgutter------------------------------------"
+" Use fontawesome icons as signs
+"let g:gitgutter_sign_added = '+'
+"let g:gitgutter_sign_modified = '>'
+"let g:gitgutter_sign_removed = '-'
+"let g:gitgutter_sign_removed_first_line = '^'
+"let g:gitgutter_sign_modified_removed = '<'
+" setting the background color of the sign column to your general background color
+let g:gitgutter_override_sign_column_highlight = 1
+highlight SignColumn guibg=bg
+highlight SignColumn ctermbg=bg
+
+" Update sign column every quarter second
+set updatetime=250
+
 "---------------------------- vim-which-key -----------------------------------"
 " Register leader for which key map
 call which_key#register(',',  "g:which_key_map")
@@ -188,6 +203,10 @@ let g:which_key_map.g = {
 			\ 'z' : 'ctags database',
 			\ }
 
+" h for gitgutter hunk
+"nmap ghs <Plug>(GitGutterStageHunk)
+"nmap ghu <Plug>(GitGutterUndoHunk)
+"
 " NERDTREE
 let g:NERDTreeDirArrowExpandable = "▸"
 let g:NERDTreeDirArrowCollapsible = "▾"

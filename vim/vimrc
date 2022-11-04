@@ -48,6 +48,7 @@ Plug 'liuchengxu/vista.vim'							" View and search LSP symbols,  tags in Vim/Ne
 Plug 'tpope/vim-fugitive'							" Fugitive is the premier Vim plugin for Git.
 Plug 'mbbill/undotree'								" visualizes undo history
 Plug 'vhda/verilog_systemverilog.vim'				" Syntax Plugin for Verilog and SystemVerilog
+Plug 'airblade/vim-gitgutter'						" A Vim plugin which shows a git diff in the sign column
 call plug#end()										" Initialize plugin system
 "
 "
