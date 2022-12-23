@@ -43,8 +43,8 @@ alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias mkdir="mkdir -pv"
 
 # find temporary files and delete 
-ff () { find $1 -type f -name "*~*" -exec rm -f {} +; }
-alias clean_tmp='ff $1'
+ff () { find $1 -type f \( -name "*~*" -o -name "*sw[lmnop]" \) -exec rm -f {} +; }
+alias cleanup='ff $1'
 
 # This priceless function is from xvoland on github
 function extract {
