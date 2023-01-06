@@ -15,8 +15,8 @@
     - [mkdir -p ~/.oh-my-zsh/custom/plugins, Creating oh-my-zsh custom plugins folders]
 
 - link:
-    ~/.tmux.conf: tmux/tmux.conf
-    ~/.tmux.conf.local: tmux/tmux.conf.local
+    ~/.tmux.conf: oh-my-tmux/.tmux.conf
+    ~/.tmux.conf.local: oh-my-tmux/.tmux.conf.local
     ~/.vimrc: vim/vimrc
     ~/.zshrc:
         force: true
