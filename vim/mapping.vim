@@ -21,6 +21,7 @@ endfunction
 " enable gtags module
 let g:gutentags_modules = ['ctags', 'gtags_cscope']
 
+"let g:gutentags_file_list_command ='find . -type f \( -name "*.[chS]" -o -name "*.py" -o -name "*.v[g]" -o -name "*.s[vh]" -o -name "*.tv" -o -name "*.vinc" \)'
 " config project root markers.
 let g:gutentags_project_root = ['.root']
 

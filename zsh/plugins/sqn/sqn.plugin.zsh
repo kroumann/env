@@ -205,3 +205,20 @@ function tv() {
     cd $TV_ROOT/$category/$branch
 }
 
+function taurus() {
+    TAURUS_ROOT=/home/mkourouma/nobackup/repos/gitlab/taurus
+    if [ "$#" -eq 0 ]; then
+        category=""
+        branch=""
+    fi
+	if [ "$#" -eq 1 ]; then
+		category=$1
+		branch=""
+	fi
+	if [ "$#" -eq 2 ]; then
+		category=$1
+		branch=$2
+	fi
+    cd $TAURUS_ROOT/$category/$branch
+}
+
