@@ -45,7 +45,8 @@ set popt=left:8pc,right:3pc     	" print options
 set ruler                       	" show the cursor position all the time
 set showmatch						" show match in current file
 set showcmd                     	" display incomplete commands
-set t_Co=256						" enable 256 color in vim.
+"set t_Co=256						" enable 256 color in vim.
+set t_Co=16							" enable 256 color in vim.
 set ttyfast							" the current terminal is a fast terminal (to do more stuff at once)
 set updatetime=1000					" Update time of many VIM things.(reasonable value)
 set undofile						" save undo's file closes
@@ -56,7 +57,7 @@ set visualbell                 		" visual bell instead of beeping
 set wildignore=*.bak,*.o,*.e,*~ 	" wildmenu: ignore these extensions
 set wildmenu                    	" command-line completion in an enhanced mode
 set background=dark					" background dark mode"
-colorscheme solarized				" use solarized color as default
+colorscheme solarized8				" use solarized color as default
 "
 filetype plugin on
 "

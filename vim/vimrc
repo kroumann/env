@@ -15,12 +15,11 @@ set nocompatible									" Use Vim settings, rather then Vi settings.
 													" other options
 													" as a side effect.
 " Install vim-plug if not found
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
-
 "" PLUGINS
 call plug#begin('~/.vim/plugged')					"  Specify a directory for plugins and initilize
 
@@ -30,7 +29,7 @@ Plug 'preservim/nerdtree'							" nerdtree for exploration
 Plug 'preservim/nerdcommenter'						" comment lines,  functions,  blocks ...
 Plug 'vim-airline/vim-airline'						" Lean & mean status/tabline for vim that's light as air.
 Plug 'vim-airline/vim-airline-themes'				" airline themeg
-Plug 'altercation/vim-colors-solarized' 			" Solarized color scheme for vim
+"Plug 'altercation/vim-colors-solarized' 			" Solarized color scheme for vim
 Plug 'junegunn/fzf', {'do': { -> fzf#install() } }  "Ensure we have latest fzf
 Plug 'junegunn/fzf.vim'								" fzf love vim
 Plug 'prabirshrestha/async.vim'						" async jop control
@@ -54,6 +53,7 @@ Plug 'mbbill/undotree'								" visualizes undo history
 Plug 'sheerun/vim-polyglot'							" A collection of language packs for Vim.
 Plug 'vhda/verilog_systemverilog.vim'				" Syntax Plugin for Verilog and SystemVerilog
 Plug 'airblade/vim-gitgutter'						" A Vim plugin which shows a git diff in the sign column
+Plug 'lifepillar/vim-solarized8'					" Solarized8 color scheme for vim 
 call plug#end()										" Initialize plugin system
 "
 "
